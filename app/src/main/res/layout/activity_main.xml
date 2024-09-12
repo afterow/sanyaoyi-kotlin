@@ -10,10 +10,17 @@
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp">
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500px"
+        android:layout_height="350px"
         android:gravity="center_vertical"
         android:orientation ="horizontal"
+        android:background="@drawable/back"
         tools:ignore="PxUsage">
 
         <TextView
@@ -116,6 +123,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <Button
@@ -123,8 +131,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="时间"
-                android:clickable="true"
-                android:focusable="true"
                 android:textSize="18sp" />
 
             <Button
@@ -142,6 +148,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <Button
