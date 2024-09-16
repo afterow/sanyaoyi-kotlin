@@ -1,19 +1,26 @@
-name: Generated APK AAB (Upload - Create Artifact To Github Action)
+name: 生成 APK AAB 2 Bundle 工具（上传 - 创建 GitHub Action 构建工件）
 
 env:
-  # The name of the main module repository
+  # 主模块仓库的名称
   main_project_module: app
 
-  # The name of the Play Store
-  playstore_name: Frogobox ID
+
+  # Keystore Path
+  ks_path: ${{ secrets.KEYSTORE_PATH }}
+
+  # Keystore Password
+  ks_store_pass: ${{ secrets.KEYSTORE_PASSWORD }}
+
+  # Keystore Alias
+  ks_alias: ${{ secrets.KEY_ALIAS }}
+
+  # Keystore Alias Password
+  ks_alias_pass: ${{ secrets.KEY_ALIAS_PASSWORD }}
+
 
 on:
 
-  push:
-    branches:
-      - 'release/**'
-
-  # Allows you to run this workflow manually from the Actions tab
+  # 允许你从 Actions 选项卡手动运行这个工作流
   workflow_dispatch:
 
 jobs:
@@ -24,63 +31,62 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Set Current Date As Env Variable
-      - name: Set current date as env variable
+      # 设置当前日期作为环境变量
+      - name: 设置当前日期为环境变量
         run: echo "date_today=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
-      # Set Repository Name As Env Variable
-      - name: Set repository name as env variable
+      # 设置仓库名称作为环境变量
+      - name: 设置仓库名称为环境变量
         run: echo "repository_name=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
 
-      - name: Set Up JDK
+      - name: 设置 JDK
         uses: actions/setup-java@v3
         with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
+          distribution: 'zulu' # 请查看“支持的发行版”以获取可用选项
           java-version: '17'
           cache: 'gradle'
 
-      - name: Change wrapper permissions
+      - name: 更改 wrapper 权限
         run: chmod +x ./gradlew
 
-      # Run Tests Build
-      - name: Run gradle tests
+      # 运行测试构建
+      - name: 运行 gradle 测试
         run: ./gradlew test
 
-      # Run Build Project
-      - name: Build gradle project
+      # 构建项目
+      - name: 构建 gradle 项目
         run: ./gradlew build
 
-      # Create APK Debug
-      - name: Build apk debug project (APK) - ${{ env.main_project_module }} module
-        run: ./gradlew assembleDebug
-
-      # Create APK Release
-      - name: Build apk release project (APK) - ${{ env.main_project_module }} module
+      # 创建 APK 发布版
+      - name: 构建 APK 发布版项目 (APK) - ${{ env.main_project_module }} 模块
         run: ./gradlew assemble
 
-      # Create Bundle AAB Release
-      # Noted for main module build [main_project_module]:bundleRelease
-      - name: Build app bundle release (AAB) - ${{ env.main_project_module }} module
+      # 创建 Bundle AAB 发布版
+      # 适用于主模块构建 [main_project_module]:bundleRelease
+      - name: 构建应用程序包发布版 (AAB) - ${{ env.main_project_module }} 模块
         run: ./gradlew ${{ env.main_project_module }}:bundleRelease
 
-      # Upload Artifact Build
-      # Noted For Output [main_project_module]/build/outputs/apk/debug/
-      - name: Upload APK Debug - ${{ env.repository_name }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - APK(s) debug generated
-          path: ${{ env.main_project_module }}/build/outputs/apk/debug/
+      - name: 从生成的 aab 中设置环境变量工件名称
+        run: |
+          cd ${{ env.main_project_module }}/build/outputs/bundle/release/
+          files=(*)
+          echo "generated_name_aab=${files[0]%.*}" >> $GITHUB_ENV
 
-      # Noted For Output [main_project_module]/build/outputs/apk/release/
-      - name: Upload APK Release - ${{ env.repository_name }}
+      # 使用 Bundletool 从 Bundle 构建 APK
+      # 输出路径：[main_project_module]/build/outputs/bundle/release/
+      - name: 使用 bundletool 从 bundle 构建 APK(s) 发布版 (路径与 bundle 输出相同)
+        run: java -jar ".github/lib/bundletool.jar" build-apks --bundle=${{ env.main_project_module }}/build/outputs/bundle/release/${{ env.generated_name_aab }}.aab --output=${{ env.main_project_module }}/build/outputs/bundle/release/${{ env.generated_name_aab }}.apks --mode=universal --ks="app/${{ env.ks_path }}" --ks-pass=pass:${{ env.ks_store_pass }} --ks-key-alias=${{ env.ks_alias }} --key-pass=pass:${{ env.ks_alias_pass }}
+
+      # 将 APK(s) 发布版复制到 zip 文件并解压
+      - name: 将 APK(s) 发布版复制到 zip 文件并解压
+        run: |
+          cd ${{ env.main_project_module }}/build/outputs/bundle/release/
+          unzip -p ${{ env.generated_name_aab }}.apks universal.apk > ${{ env.generated_name_aab }}.apk
+
+
+      # 输出路径：[main_project_module]/build/outputs/apk/release/
+      - name: 上传 APK 发布版 - ${{ env.repository_name }}
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - APK(s) release generated
+          name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - APK(s) 发布版生成
           path: ${{ env.main_project_module }}/build/outputs/apk/release/
-
-      # Noted For Output [main_project_module]/build/outputs/bundle/release/
-      - name: Upload AAB (App Bundle) Release - ${{ env.repository_name }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - App bundle(s) AAB release generated
-          path: ${{ env.main_project_module }}/build/outputs/bundle/release/
