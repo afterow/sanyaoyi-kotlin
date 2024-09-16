@@ -72,10 +72,6 @@ jobs:
           files=(*)
           echo "generated_name_aab=${files[0]%.*}" >> $GITHUB_ENV
 
-      # 使用 Bundletool 从 Bundle 构建 APK
-      # 输出路径：[main_project_module]/build/outputs/bundle/release/
-      - name: 使用 bundletool 从 bundle 构建 APK(s) 发布版 (路径与 bundle 输出相同)
-        run: java -jar ".github/lib/bundletool.jar" build-apks --bundle=${{ env.main_project_module }}/build/outputs/bundle/release/${{ env.generated_name_aab }}.aab --output=${{ env.main_project_module }}/build/outputs/bundle/release/${{ env.generated_name_aab }}.apks --mode=universal --ks="app/${{ env.ks_path }}" --ks-pass=pass:${{ env.ks_store_pass }} --ks-key-alias=${{ env.ks_alias }} --key-pass=pass:${{ env.ks_alias_pass }}
 
       # 将 APK(s) 发布版复制到 zip 文件并解压
       - name: 将 APK(s) 发布版复制到 zip 文件并解压
