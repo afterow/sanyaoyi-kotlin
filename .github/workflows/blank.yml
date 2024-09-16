@@ -28,7 +28,7 @@ jobs:
           java-version: 11
 
       # 设置gradle环境(比如: 6.5)、打包命令
-      - uses: gradle/gradle-build-action@v4
+      - uses: gradle/gradle-build-action@v3
         with:
           gradle-version: current
           arguments: assembleRelease
