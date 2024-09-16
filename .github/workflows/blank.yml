@@ -18,6 +18,7 @@ jobs:
 
       # 打包release
       - name: Build with Gradle
+      - uses: gradle/gradle-build-action@v3
         env:
           PASSWORD: ${{ secrets.PASSWORD }}
           ALIAS: ${{ secrets.ALIAS }}
