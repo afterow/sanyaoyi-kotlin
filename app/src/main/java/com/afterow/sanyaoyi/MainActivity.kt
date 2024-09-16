@@ -1,4 +1,5 @@
 package com.afterow.sanyaoyi
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -50,7 +51,14 @@ class MainActivity : AppCompatActivity() {
         binding.rizhi.text = eightCharlist.get(5).toString()
         binding.shizhi.text = eightCharlist.get(7).toString()
 
+        // 通过binding对象获取按钮并设置点击事件监听器
+        binding.textViewTime.setOnClickListener {
+            // 创建Intent来启动SecondActivity
+            val intent = Intent(this, MainActivity2::class.java)
+            // 开始跳转
+            startActivity(intent)
 
+        }
     }
 }
 

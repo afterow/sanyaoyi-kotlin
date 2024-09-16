@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
 
     implementation("cn.6tail:tyme4j:1.1.2")
+    implementation(libs.androidx.activity)
 
 
     testImplementation(libs.junit)

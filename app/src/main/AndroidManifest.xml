@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sanyaoyi"
         tools:targetApi="31">
-
+        <activity
+            android:name=".MainActivity2"
+            android:exported="true">
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"
