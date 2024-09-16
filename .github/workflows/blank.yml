@@ -73,13 +73,6 @@ jobs:
           echo "generated_name_aab=${files[0]%.*}" >> $GITHUB_ENV
 
 
-      # 将 APK(s) 发布版复制到 zip 文件并解压
-      - name: 将 APK(s) 发布版复制到 zip 文件并解压
-        run: |
-          cd ${{ env.main_project_module }}/build/outputs/bundle/release/
-          unzip -p ${{ env.generated_name_aab }}.apks universal.apk > ${{ env.generated_name_aab }}.apk
-
-
       # 输出路径：[main_project_module]/build/outputs/apk/release/
       - name: 上传 APK 发布版 - ${{ env.repository_name }}
         uses: actions/upload-artifact@v4
