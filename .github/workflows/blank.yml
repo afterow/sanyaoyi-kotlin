@@ -64,14 +64,6 @@ jobs:
       - name: Build apk release project (APK) - ${{ env.main_project_module }} module
         run: ./gradlew assemble
 
-
-      # 设置生成的 AAB 的环境变量名称
-      - name: Set Env Artifact name from generated aab
-        run: |
-          cd ${{ env.main_project_module }}/build/outputs/bundle/release/
-          files=(*)
-          echo "generated_name_aab=${files[0]%.*}" >> $GITHUB_ENV
-
       # 使用 Bundletool 从 Bundle 创建 APK（发布）
       - name: Build APK(s) Release from bundle using bundletool (Path same with bundle output)
         run: java -jar ".github/lib/bundletool.jar" build-apks --bundle=${{ env.main_project_module }}/build/outputs/bundle/release/${{ env.generated_name_aab }}.aab --output=${{ env.main_project_module }}/build/outputs/bundle/release/${{ env.generated_name_aab }}.apks --mode=universal --ks="app/${{ env.ks_path }}" --ks-pass=pass:${{ env.ks_store_pass }} --ks-key-alias=${{ env.ks_alias }} --key-pass=pass:${{ env.ks_alias_pass }}
