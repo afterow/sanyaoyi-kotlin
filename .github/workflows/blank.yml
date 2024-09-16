@@ -1,73 +1,23 @@
-name: Generated APK AAB 2 Bundle Tool (Upload - Create Artifact To Github Action)
+name: Build
 
-env:
-  # 主模块仓库名称
-  main_project_module: app
-
-  # Play Store 名称
-  playstore_name: Frogobox ID
-
-  # Keystore 路径
-  ks_path: frogoboxdev.jks
-
-  # Keystore 密码
-  ks_store_pass: cronoclez
-
-  # Keystore 别名
-  ks_alias: frogobox
-
-  # Keystore 别名密码
-  ks_alias_pass: xeonranger
-
-on:
-
-
-  # 允许从 Actions 标签手动运行此工作流
-  workflow_dispatch:
+on: workflow_dispatch
 
 jobs:
-  build:
-
+  Android:
+    name: Android
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
-
-      # 设置当前日期为环境变量
-      - name: Set current date as env variable
-        run: echo "date_today=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-
-      # 设置仓库名称为环境变量
-      - name: Set repository name as env variable
-        run: echo "repository_name=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
-      
-      - name: Set Up JDK
-        uses: actions/setup-java@v3
+      - uses: actions/checkout@v2
+      - uses: rheuvel89/xamarin-container-action@v2
         with:
-          distribution: 'zulu' # 查看 'Supported distributions' 以了解可用选项
-          java-version: '17'
-          cache: 'gradle'
-
-      
-      - name: Change wrapper permissions
-        run: chmod +x ./gradlew
-
-      # 运行测试构建
-      - name: Run gradle tests
-        run: ./gradlew test
-
-      # 构建项目
-      - name: Build gradle project
-        run: ./gradlew build
-
-      # 创建发布 APK
-      - name: Build apk release project (APK) - ${{ env.main_project_module }} module
-        run: ./gradlew assemble
-
-
-      # 上传发布 APK
-      - name: Upload APK Release - ${{ env.repository_name }}
-        uses: actions/upload-artifact@v3
+          SolutionPath: src/sample.Android/sample.Android.csproj
+          ProjectPath: src/sample.sln
+          SigningKeyStore: ${{ secrets.KEYSTORE }}
+          SigningKeystorePassword: ${{ secrets.KEYSTORE_PASS }}
+          SigningKeyAlias: ${{ secrets.KEY_ALIAS }}
+          SigningKeyPassword: ${{ secrets.KEY_PASS }}
+          BuildConfiguration: "Release"
+      - uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - APK(s) release generated
-          path: ${{ env.main_project_module }}/build/outputs/apk/release/
+          name: release
+          path: build/**Signed.apk
