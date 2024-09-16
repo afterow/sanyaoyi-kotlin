@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         binding.shizhi.text = eightCharlist.get(7).toString()
 
         // 通过binding对象获取按钮并设置点击事件监听器
-        binding.textViewTime.setOnClickListener {
+        binding.textViewPaiPan.setOnClickListener {
             // 创建Intent来启动SecondActivity
             val intent = Intent(this, MainActivity2::class.java)
             // 开始跳转

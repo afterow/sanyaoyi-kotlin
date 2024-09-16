@@ -161,7 +161,7 @@
                 android:layout_height="80dp"
                 android:backgroundTint="#f0fcff"
                 android:textColor="@color/black"
-                android:text="排盘"
+                android:text="指定排盘"
                 android:textSize="18sp" />
 
             <Button
