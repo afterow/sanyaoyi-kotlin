@@ -17,7 +17,7 @@ jobs:
           SigningKeyAlias: ${{ secrets.KEY_ALIAS }}
           SigningKeyPassword: ${{ secrets.KEY_PASS }}
           BuildConfiguration: "Release"
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: release
           path: build/**Signed.apk
