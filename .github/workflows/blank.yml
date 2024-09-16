@@ -7,7 +7,7 @@ jobs:
     name: Android
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: rheuvel89/xamarin-container-action@v2
         with:
           SolutionPath: src/sample.Android/sample.Android.csproj
