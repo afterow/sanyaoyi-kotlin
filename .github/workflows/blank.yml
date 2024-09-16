@@ -65,13 +65,6 @@ jobs:
         run: ./gradlew assemble
 
 
-      # 复制发布 APK 到 zip 文件并解压
-      - name: Duplicate APK(s) Release to zip file and extract
-        run: |
-          cd ${{ env.main_project_module }}/build/outputs/bundle/release/
-          unzip -p ${{ env.generated_name_aab }}.apks universal.apk > ${{ env.generated_name_aab }}.apk
-
-
       # 上传发布 APK
       - name: Upload APK Release - ${{ env.repository_name }}
         uses: actions/upload-artifact@v3
