@@ -28,15 +28,21 @@ jobs:
           name: apk
           path: app/build/outputs/apk/debug/app-debug.apk
 
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Create Release
-        id: create_release
+      - name: 创建发布
         uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+  with:
+    draft: false
+    prerelease: false
+    tag_name: main # 在这里指定标签名
+    release_name: 发布 main
+  env:
+    JAVA_HOME_22.0.2_x64: /opt/hostedtoolcache/jdk/22.0.2/x64
+    JAVA_HOME: /opt/hostedtoolcache/jdk/22.0.2/x64
+    JAVA_HOME_22_0_2_X64: /opt/hostedtoolcache/jdk/22.0.2/x64
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # 确保使用正确的 GitHub 令牌
+
+    tag_name: ${{ github.ref }}
+    release_name: Release ${{ github.ref }}
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
