@@ -1,81 +1,70 @@
-name: 生成 APK AAB 2 Bundle 工具（上传 - 创建 GitHub Action 构建工件）
+name: Release
 
-env:
-  # 主模块仓库的名称
-  main_project_module: app
-
-
-  # Keystore Path
-  ks_path: ${{ secrets.KEYSTORE_PATH }}
-
-  # Keystore Password
-  ks_store_pass: ${{ secrets.KEYSTORE_PASSWORD }}
-
-  # Keystore Alias
-  ks_alias: ${{ secrets.KEY_ALIAS }}
-
-  # Keystore Alias Password
-  ks_alias_pass: ${{ secrets.KEY_ALIAS_PASSWORD }}
-
-
+# 触发条件: 这里是push以”v“开头的tag触发
 on:
+  workflow_dispatch
 
-  # 允许你从 Actions 选项卡手动运行这个工作流
-  workflow_dispatch:
-
+# 一次持续集成的运行，可以完成多个任务(下面就build)
 jobs:
-  build:
-
+  builds:
+    # 构建的系统(ubuntu、windows、macos)
     runs-on: ubuntu-latest
 
+
+    # 构建权限，ncipollo/release-action需要使用
+    permissions:
+      contents: write
+
+    # 操作步骤(按顺序执行)
     steps:
-      - uses: actions/checkout@v4
 
-      # 设置当前日期作为环境变量
-      - name: 设置当前日期为环境变量
-        run: echo "date_today=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+      # 拉取仓库代码
+      - uses: actions/checkout@v3
 
-      # 设置仓库名称作为环境变量
-      - name: 设置仓库名称为环境变量
-        run: echo "repository_name=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
-
-      - name: 设置 JDK
-        uses: actions/setup-java@v3
+      # 设置Java运行环境(temurin是开源jdk)，可以设置为: 1.8
+      - uses: actions/setup-java@v3
         with:
-          distribution: 'zulu' # 请查看“支持的发行版”以获取可用选项
-          java-version: '17'
-          cache: 'gradle'
+          distribution: temurin
+          java-version: 11
 
-      - name: 更改 wrapper 权限
-        run: chmod +x ./gradlew
-
-      # 运行测试构建
-      - name: 运行 gradle 测试
-        run: ./gradlew test
-
-      # 构建项目
-      - name: 构建 gradle 项目
-        run: ./gradlew build
-
-      # 创建 APK 发布版
-      - name: 构建 APK 发布版项目 (APK) - ${{ env.main_project_module }} 模块
-        run: ./gradlew assemble
-
-      # 创建 Bundle AAB 发布版
-      # 适用于主模块构建 [main_project_module]:bundleRelease
-      - name: 构建应用程序包发布版 (AAB) - ${{ env.main_project_module }} 模块
-        run: ./gradlew ${{ env.main_project_module }}:bundleRelease
-
-      - name: 从生成的 aab 中设置环境变量工件名称
-        run: |
-          cd ${{ env.main_project_module }}/build/outputs/bundle/release/
-          files=(*)
-          echo "generated_name_aab=${files[0]%.*}" >> $GITHUB_ENV
-
-
-      # 输出路径：[main_project_module]/build/outputs/apk/release/
-      - name: 上传 APK 发布版 - ${{ env.repository_name }}
-        uses: actions/upload-artifact@v4
+      # 设置gradle环境(比如: 6.5)、打包命令
+      - uses: gradle/gradle-build-action@v4
         with:
-          name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - APK(s) 发布版生成
-          path: ${{ env.main_project_module }}/build/outputs/apk/release/
+          gradle-version: current
+          arguments: assembleRelease
+
+      # 签名apk
+      - uses: r0adkll/sign-android-release@v1
+        name: Sign app APK
+        id: sign_app
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+        # 还能设置build-tools version，29.0.3好像不支持了
+        env:
+          # override default build-tools version (29.0.3) -- optional
+          BUILD_TOOLS_VERSION: "34.0.0"
+
+      # build-tools可能不存在，用step查看下支持哪些
+      - run: ls /usr/local/lib/android/sdk/build-tools/
+
+      # 重命名apk
+      # GITHUB_REF_NAME是“触发workflow的分支或tag名称”
+      - run: mv ${{steps.sign_app.outputs.signedReleaseFile}} fundark_$GITHUB_REF_NAME.apk
+        # 可以指定shell命令的执行目录
+        # working-directory: ./temp
+        # 只当shell的类型
+        # shell: bash
+
+      # 发布
+      - uses: ncipollo/release-action@v1
+        with:
+          # 要包含到Release Assets中的文件
+          artifacts: "*.apk"
+          # 会使用一个临时的token来创建Release
+          token: ${{ github.token }}
+          # 自动生成一些变化列表之类的内容。
+          generateReleaseNotes: true
