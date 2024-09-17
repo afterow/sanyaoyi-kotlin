@@ -1,16 +1,16 @@
-name: Android CI Generated Artifact
+name: Android CI/cd
 
 env:
-  # The name of the main module repository
+  # 主模块仓库的名称
   main_project_module: app
 
-  # The name of the Play Store
+  # Google Play 商店的名称
   playstore_name: Frogobox ID
 
 on:
-  # Triggers the workflow on push or pull request events but only for default and protected branches
+  # 在推送或拉取请求事件时触发工作流，但仅限于默认和受保护的分支
   workflow_dispatch:
-  # The workflow will be dispatched to the default queue
+  # 工作流将被调度到默认队列
 
 jobs:
   build:
@@ -20,31 +20,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Set Current Date As Env Variable
-      - name: Set current date as env variable
+      # 设置当前日期作为环境变量
+      - name: 设置当前日期作为环境变量
         run: echo "date_today=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
-      # Set Repository Name As Env Variable
-      - name: Set repository name as env variable
+      # 设置仓库名称作为环境变量
+      - name: 设置仓库名称作为环境变量
         run: echo "repository_name=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
 
       - uses: actions/setup-java@v4
         with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
+          distribution: 'zulu' # 请参见 '支持的发行版' 以获取可用选项
           java-version: '22'
           cache: 'gradle'
 
-      - name: Change wrapper permissions
+      - name: 更改 wrapper 权限
         run: chmod +x ./gradlew
 
-      # Run Tests Build
-      - name: Run gradle tests
+      # 运行测试构建
+      - name: 运行 gradle 测试
         run: ./gradlew test
 
-      # Run Build Project
-      - name: Build gradle project
+      # 构建项目
+      - name: 构建 gradle 项目
         run: ./gradlew build
 
-      # Create APK Release
-      - name: Build apk release project (APK) - ${{ env.main_project_module }} module
+      # 创建 APK 发布
+      - name: 构建 APK 发布项目 (APK) - ${{ env.main_project_module }} 模块
         run: ./gradlew assemble
