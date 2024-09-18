@@ -19,9 +19,14 @@ jobs:
       - name: Read version from build.gradle.kts
         id: get_version
         run: |
-          VERSION=$(sed -n 's/.*version *= *"\(.*\)".*/\1/p' ./app/build.gradle.kts)
-          echo "VERSION=${VERSION}" >> $GITHUB_ENV
-          echo "version=${VERSION}" # Output for debugging
+          VERSION_NAME=$(sed -n 's/.*versionName *= *"\(.*\)".*/\1/p' ./app/build.gradle.kts)
+          VERSION_CODE=$(sed -n 's/.*versionCode *= *\([0-9]*\).*/\1/p' ./app/build.gradle.kts)
+          echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV
+          echo "VERSION_CODE=${VERSION_CODE}" >> $GITHUB_ENV
+          echo "versionName=${VERSION_NAME}" # Debug output
+          echo "versionCode=${VERSION_CODE}" # Debug output
 
       - name: Display version
-        run: echo "The version is ${{ env.VERSION }}"
+        run: |
+          echo "The version name is ${{ env.VERSION_NAME }}"
+          echo "The version code is ${{ env.VERSION_CODE }}"
