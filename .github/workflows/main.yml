@@ -60,5 +60,5 @@ jobs:
       - name: Get version
         id: get_version
         run: |
-          VERSION_NAME=$(sed -n 's/.*versionName\s*//p' ./app/build.gradle | tr -d '"')
+          VERSION_NAME=$(sed -n 's/.*versionName\s*//p' ./app/build.gradle.kts | tr -d '"')
           echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV
