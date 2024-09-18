@@ -1,0 +1,22 @@
+name: Read Version
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  get-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Read version from build.gradle
+        run: |
+          VERSION=$(grep 'version' build.gradle | awk '{print $2}' | tr -d "'")
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+
+      - name: Display version
+        run: echo "The version is $VERSION"
