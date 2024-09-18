@@ -62,3 +62,7 @@ jobs:
         run: |
           VERSION_NAME=$(sed -n 's/.*versionName\s*//p' ./app/build.gradle.kts | tr -d '"')
           echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV
+
+
+      - name: Print version
+        run: echo "Version: ${ VERSION_NAME }"
