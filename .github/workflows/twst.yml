@@ -17,9 +17,11 @@ jobs:
         run: ls -R
 
       - name: Read version from build.gradle.kts
+        id: get_version
         run: |
-          VERSION=$(sed -n 's/^ *version *= *"\(.*\)"/\1/p' ./app/build.gradle.kts)
+          VERSION=$(sed -n 's/.*version *= *"\(.*\)".*/\1/p' ./app/build.gradle.kts)
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "version=${VERSION}" # Output for debugging
 
       - name: Display version
-        run: echo "The version is $VERSION"
+        run: echo "The version is ${{ env.VERSION }}"
