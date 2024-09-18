@@ -13,10 +13,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: List files
+        run: ls -R
 
-      - name: Read version from build.gradle
+      - name: Read version from build.gradle.kts
         run: |
-          VERSION=$(grep 'version' ./app/build.gradle.kts | awk '{print $2}' | tr -d "'")
+          VERSION=$(sed -n 's/^ *version *= *"\(.*\)"/\1/p' ./app/build.gradle.kts)
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
       - name: Display version
