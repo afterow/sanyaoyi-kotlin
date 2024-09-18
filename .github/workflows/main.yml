@@ -54,12 +54,3 @@ jobs:
         with:
           name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - APK(s) release generated
           path: ${{ env.main_project_module }}/build/outputs/apk/release/
-
-
-      
-      - name: Get version
-        id: get_version
-        run: |
-          VERSION_NAME=$(sed -n 's/.*versionName\s*//p' ./app/build.gradle.kts | tr -d '"')
-          echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV
-          print GITHUB_ENV
