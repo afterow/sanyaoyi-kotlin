@@ -57,8 +57,16 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity2::class.java)
             // 开始跳转
             startActivity(intent)
-
         }
+
+        binding.textViewTime.setOnClickListener {
+            // 创建Intent来启动SecondActivity
+            val intent = Intent(this, DivinationActivity::class.java)
+            // 开始跳转
+            startActivity(intent)
+        }
+
+
     }
 }
 
