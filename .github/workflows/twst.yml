@@ -1,0 +1,26 @@
+name: Read Version
+
+on:
+  workflow_dispatch
+
+jobs:
+  get-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: List files
+        run: ls -R
+
+      - name: Read version from build.gradle.kts
+        id: get_version
+        run: |
+          VERSION_NAME=$(sed -n 's/.*versionName *= *"\(.*\)".*/\1/p' ./app/build.gradle.kts)
+          echo "versionName=${VERSION_NAME}" # Debug output
+          
+
+      - name: Display version
+        run: |
+          echo "The version name is ${{ env.VERSION_NAME }}"
