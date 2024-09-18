@@ -18,4 +18,4 @@ jobs:
           echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV
 
       - name: Print version
-        run: echo "Version: ${{ env.VERSION_NAME }}"
+        run: echo "Version: $VERSION_NAME"
