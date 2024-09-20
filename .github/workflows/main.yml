@@ -57,6 +57,10 @@ jobs:
         shell: bash
 
 
+      - name: Check Keystore File
+        run: ls -l my-release-key.keystore
+
+
       # 读取签名配置
       - name: 读取签名配置
         run: |
