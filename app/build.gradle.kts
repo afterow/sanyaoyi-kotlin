@@ -12,8 +12,8 @@ android {
 
     defaultConfig {
         applicationId = "com.afterow.sanyaoyi"
-        minSdk = 33
-        targetSdk = 33
+        minSdk = 30
+        targetSdk = 30
         versionCode = 1
         versionName = "1.0"
 
