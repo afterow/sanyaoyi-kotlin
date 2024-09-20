@@ -1,9 +1,6 @@
 name: Android CI/cd
 
 env:
-  # 主模块仓库的名称
-  main_project_module: app
-
   # Google Play 商店的名称
   playstore_name: Frogobox ID
 
