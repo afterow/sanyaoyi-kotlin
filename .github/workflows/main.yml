@@ -58,7 +58,7 @@ jobs:
 
 
       - name: Check Keystore File
-        run: ls -l my-release-key.keystore
+        run: ls -l key.keystore
 
 
       # 读取签名配置
