@@ -43,7 +43,9 @@ android {
 
 dependencies {
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
+    implementation("androidx.appcompat:appcompat:1.4.0") // 降级到兼容版本
+    implementation("androidx.appcompat:appcompat-resources:1.4.0") // 同样降级
+
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
 
