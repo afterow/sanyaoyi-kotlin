@@ -68,7 +68,9 @@ jobs:
       - name: 构建带签名的 APK
         run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file=./my-release-key.keystore -Pandroid.injected.signing.store.password=${{ env.KEYSTORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ env.KEY_ALIAS }} -Pandroid.injected.signing.key.alias.password=${{ env.KEY_ALIAS_PASSWORD }}
 
- 
+      - name: List APK outputs
+        run: ls -l app/build/outputs/apk/release/
+      
 
       - name: 构建的apk发表
         uses: actions/upload-artifact@v4
