@@ -22,7 +22,7 @@ android {
     
     signingConfigs {
             create("release") {
-                storeFile = file("storeFile = file("/home/runner/work/sanyaoyi-kotlin/sanyaoyi-kotlin/app/my-release-key.keystore")
+                storeFile = file("./my-release-key.keystore")
                 storePassword = System.getenv("KEYSTORE_PASSWORD")
                 keyAlias = System.getenv("KEY_ALIAS")
                 keyPassword = System.getenv("KEY_ALIAS_PASSWORD")
