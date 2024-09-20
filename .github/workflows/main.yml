@@ -28,6 +28,15 @@ jobs:
       - name: 设置仓库名称作为环境变量
         run: echo "repository_name=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
 
+      
+      - name: 从 build.gradle.kts 读取版本
+        id: get_version
+        run: |
+          VERSION_NAME=$(sed -n 's/.*versionName *= *"\(.*\)".*/\1/p' ./app/build.gradle.kts)
+          echo "versionName=${VERSION_NAME}" # Debug output
+          
+
+      
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu' # 请参见 '支持的发行版' 以获取可用选项
@@ -52,5 +61,5 @@ jobs:
       - name: 构建的apk发表
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - APK(s) release generated
+          name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }}  -${{ env.VERSION_NAME }} -APK(s) release generated
           path: ${{ env.main_project_module }}/build/outputs/apk/release/
