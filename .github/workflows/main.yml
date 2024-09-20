@@ -51,22 +51,23 @@ jobs:
       - name: 运行 gradle 测试
         run: ./gradlew test
 
-      # 构建项目
-            # 解码 keystore
+        # 解码 keystore
       - name: 解码 keystore
-        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > ./my-release-key.keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | Out-File -Encoding ASCII -FilePath ./my-release-key.keystore -InputObject ([Convert]::FromBase64String($(Get-Content -Raw -Path /dev/stdin)))
 
       # 读取签名配置
       - name: 读取签名配置
         run: |
-          echo "KEYSTORE_PASSWORD=$(cat ${{ secrets.KEYSTORE_BASE64 }})" >> $GITHUB_ENV
-          echo "KEY_ALIAS=$(cat ${{ secrets.KEY_ALIAS }})" >> $GITHUB_ENV
-          echo "KEY_ALIAS_PASSWORD=$(cat ${{ secrets.KEY_ALIAS_PASSWORD }})" >> $GITHUB_ENV
+          echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> $GITHUB_ENV
+          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> $GITHUB_ENV
+          echo "KEY_ALIAS_PASSWORD=${{ secrets.KEY_ALIAS_PASSWORD }}" >> $GITHUB_ENV
 
       # 使用签名构建 APK
       - name: 构建带签名的 APK
         run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file=./my-release-key.keystore -Pandroid.injected.signing.store.password=${{ env.KEYSTORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ env.KEY_ALIAS }} -Pandroid.injected.signing.key.alias.password=${{ env.KEY_ALIAS_PASSWORD }}
 
+ 
 
       # 创建 APK 发布
       - name: 构建 APK 发布项目 (APK) - ${{ env.main_project_module }} 模块
