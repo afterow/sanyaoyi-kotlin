@@ -60,6 +60,9 @@ jobs:
       - name: Check Keystore File
         run: ls -l key.keystore
 
+      - name: pwd
+        run: pwd
+
 
       # 读取签名配置
       - name: 读取签名配置
