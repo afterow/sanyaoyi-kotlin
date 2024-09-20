@@ -51,10 +51,11 @@ jobs:
       - name: 运行 gradle 测试
         run: ./gradlew test
 
-        # 解码 keystore
-      - name: 解码 keystore
-        run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | Out-File -Encoding ASCII -FilePath ./my-release-key.keystore -InputObject ([Convert]::FromBase64String($(Get-Content -Raw -Path /dev/stdin)))
+       # 解码 keystore
+      - name: Save Keystore
+        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > ./my-release-key.keystore
+        shell: bash
+
 
       # 读取签名配置
       - name: 读取签名配置
