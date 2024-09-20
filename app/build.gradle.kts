@@ -8,12 +8,12 @@ android {
         enable =true
     }
     namespace = "com.afterow.sanyaoyi"
-    compileSdk = 30
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.afterow.sanyaoyi"
-        minSdk = 30
-        targetSdk = 30
+        minSdk = 32
+        targetSdk = 32
         versionCode = 1
         versionName = "1.0"
 
