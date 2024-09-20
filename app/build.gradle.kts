@@ -19,6 +19,15 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    
+    signingConfigs {
+            create("release") {
+                storeFile = file("./my-release-key.keystore")
+                storePassword = System.getenv("KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("KEY_ALIAS")
+                keyPassword = System.getenv("KEY_ALIAS_PASSWORD")
+            }
+        }
 
     buildTypes {
         release {
