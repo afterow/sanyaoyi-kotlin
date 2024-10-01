@@ -25,6 +25,17 @@ class DivinationActivity : AppCompatActivity() {
 
         binding.fourValuesTextView.text = eightChar2.toString()
 
+        val lunarHour2 = SolarTime.fromYmdHms( now.year, now.monthValue, now.dayOfMonth,
+            now.hour, now.minute, now.second).lunarHour
+
+        binding.lunarDateTextView.text = lunarHour2.toString()
+
+
+        binding.gregorianDateTextView.text = now.toString()
+
+
+
+
 
     }
 }
