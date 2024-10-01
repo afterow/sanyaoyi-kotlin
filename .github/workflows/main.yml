@@ -1,9 +1,6 @@
 name: Android CI/cd
 
 env:
-  # 主模块仓库的名称
-  main_project_module: app
-
   # Google Play 商店的名称
   playstore_name: Frogobox ID
 
@@ -53,7 +50,7 @@ jobs:
 
        # 解码 keystore
       - name: Save Keystore
-        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > ./my-release-key.keystore
+        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > key.keystore
         shell: bash
 
 
@@ -66,7 +63,7 @@ jobs:
 
       # 使用签名构建 APK
       - name: 构建带签名的 APK
-        run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file=./my-release-key.keystore -Pandroid.injected.signing.store.password=${{ env.KEYSTORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ env.KEY_ALIAS }} -Pandroid.injected.signing.key.alias.password=${{ env.KEY_ALIAS_PASSWORD }}
+        run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file=./key.keystore -Pandroid.injected.signing.store.password=${{ env.KEYSTORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ env.KEY_ALIAS }} -Pandroid.injected.signing.key.alias.password=${{ env.KEY_ALIAS_PASSWORD }}
 
       - name: List APK outputs
         run: ls -l app/build/outputs/apk/release/
