@@ -50,7 +50,6 @@ class MainActivity2 : AppCompatActivity() {
             val targetValue = mutableList
             val result = guaCalculator.toggleElement(targetValue)
             test100.text =result
-
         }
     }
 }

@@ -11,6 +11,7 @@ import com.afterow.sanyaoyi.databinding.ActivityMainBinding
 import java.text.SimpleDateFormat
 import java.util.Date
 import com.tyme.lunar.LunarHour
+import com.tyme.solar.SolarTime
 import java.time.LocalDateTime
 
 
@@ -38,7 +39,9 @@ class MainActivity : AppCompatActivity() {
         )
 
 
-        val eightChar = lunarHour.eightChar.toString().replace(" ", "")
+        val eightChar = SolarTime.fromYmdHms( now.year, now.monthValue, now.dayOfMonth,
+            now.hour, now.minute, now.second).lunarHour.eightChar.toString().replace(" ", "")
+
         val eightCharlist = eightChar.toList()
 
         binding.niangan.text = eightCharlist.get(0).toString()
