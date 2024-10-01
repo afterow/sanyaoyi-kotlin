@@ -33,11 +33,6 @@ class MainActivity : AppCompatActivity() {
 
 
         val now = LocalDateTime.now()
-        val lunarHour = LunarHour.fromYmdHms(
-            now.year, now.monthValue, now.dayOfMonth,
-            now.hour, now.minute, now.second
-        )
-
 
         val eightChar = SolarTime.fromYmdHms( now.year, now.monthValue, now.dayOfMonth,
             now.hour, now.minute, now.second).lunarHour.eightChar.toString().replace(" ", "")
