@@ -50,7 +50,7 @@ jobs:
 
        # 解码 keystore
       - name: Save Keystore
-        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > key.keystore
+        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > key.keystore 2>/dev/null
         shell: bash
 
 
