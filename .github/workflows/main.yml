@@ -74,4 +74,3 @@ jobs:
         with:
           name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - ${{ env.VERSION_NAME }} - Signed APK(s)
           path: ./app/build/outputs/apk/release/*.apk
-
