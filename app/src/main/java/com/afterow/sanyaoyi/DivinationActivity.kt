@@ -2,7 +2,6 @@ package com.afterow.sanyaoyi
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.afterow.sanyaoyi.databinding.ActivityDivinationBinding
-import com.tyme.lunar.LunarHour
 import com.tyme.solar.SolarTime
 import java.time.LocalDateTime
 
@@ -33,8 +32,8 @@ class DivinationActivity : AppCompatActivity() {
 
         binding.gregorianDateTextView.text = now.toString()
 
-
-
+        val name = intent.getStringExtra("name")
+        binding.testto.text =name
 
 
     }

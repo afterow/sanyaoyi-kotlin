@@ -59,7 +59,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.textViewTime.setOnClickListener {
             // 创建Intent来启动SecondActivity
+            // 时间排盘
             val intent = Intent(this, DivinationActivity::class.java)
+            intent.putExtra("name", "张三");
+
             // 开始跳转
             startActivity(intent)
         }

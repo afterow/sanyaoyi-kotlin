@@ -24,8 +24,8 @@ class GuaCalculator {
         listOf("地天泰", "地泽临", "地火明夷", "地雷复", "地风升", "地水师", "地山谦", "坤为地")
     )
 
-    private fun indexBigGua(a: Int, b: Int): String {
-        return biggua[a - 1][b - 1]
+    private fun indexBigGua(shanggua: Int, xiagua: Int): String {
+        return biggua[shanggua - 1][xiagua - 1]
     }
 
     private fun findKeyByValue(baguaDict: Map<String, List<Any>>, targetValue: Any): List<Any>? {
@@ -34,6 +34,7 @@ class GuaCalculator {
                 return mutableListOf(key, value[0], value[1])
             }
         }
+        // 返回 [乾, [1, 1, 1], 1]
         return null
     }
 
@@ -59,11 +60,55 @@ class GuaCalculator {
         val zongBen = findKeyByValue(bagua, reverseTmpList.subList(0, 3))
         val zongBian = findKeyByValue(bagua, reverseTmpList.subList(3, 6))
 
+
+        val ixman = (manGua.getOrNull(2)as Int)
+        val ixbianGua:Int =(bianGua?.getOrNull(2) as Int)
+        val ixhuBen =(huBen?.getOrNull(2)as Int)
+        val ixhuBian:Int = (huBian?.getOrNull(2) as Int)
+
+
+        fun takeLastBasedOnLength(input: String): String {
+            return if (input.length >= 4) {
+                input.takeLast(2)
+            } else {
+                input.takeLast(1)
+            }
+        }
+
+        val ziGong: String = takeLastBasedOnLength(indexBigGua(ixbianGua, ixhuBian))
+        val chouGong: String = takeLastBasedOnLength(indexBigGua(ixman, ixhuBen))
+        val yinGong: String = takeLastBasedOnLength(indexBigGua(ixhuBian, ixhuBen))
+        val maoGong: String = takeLastBasedOnLength(indexBigGua(ixhuBian, ixhuBian))
+        val chenGong: String = takeLastBasedOnLength(indexBigGua(ixman, ixbianGua))
+        val siGong: String = takeLastBasedOnLength(indexBigGua(ixman, ixhuBian))
+        val wuGong: String = takeLastBasedOnLength(indexBigGua(ixhuBen, ixman))
+        val weiGong: String = takeLastBasedOnLength(indexBigGua(ixhuBian, ixbianGua))
+        val shenGong: String = takeLastBasedOnLength(indexBigGua(ixhuBen, ixbianGua))
+        val youGong: String = takeLastBasedOnLength(indexBigGua(ixbianGua, ixman))
+        val xuGong: String = takeLastBasedOnLength(indexBigGua(ixhuBian, ixman))
+        val haiGong: String = takeLastBasedOnLength(indexBigGua(ixhuBian, ixman))
+
+        println("${ziGong} ${chouGong} ${yinGong} ${maoGong} ${chenGong} ${siGong} ${wuGong} ${weiGong} ${shenGong} ${youGong} ${xuGong} ${haiGong}")
+
+
         return buildString {
-            append("本卦：${manGua[0]}之${bianGua?.getOrNull(0)}\n")
-            append("互卦：${huBen?.getOrNull(0)}之${huBian?.getOrNull(0)}\n")
+            append("本卦：${manGua[0]}之${bianGua.getOrNull(0)}\n")
+            append("互卦：${huBen.getOrNull(0)}之${huBian.getOrNull(0)}\n")
             append("错卦：${cuoBen?.getOrNull(0)}之${cuoBian?.getOrNull(0)}\n")
-            append("宗卦：${zongBen?.getOrNull(0)}之${zongBian?.getOrNull(0)}\n")
+            append("宗卦：${zongBen?.getOrNull(0)}之${zongBian?.getOrNull(0)}")
         }
     }
+}
+
+fun main() {
+    // 创建GuaCalculator实例
+    val calculator = GuaCalculator()
+
+    // 定义一个三爻的列表，例如代表乾卦（阳阳阳）
+    val targetValue = listOf(1, 1, 1)
+
+    // 调用toggleElement方法
+    val result = calculator.toggleElement(targetValue)
+    // 打印结果
+    println(result)
 }
