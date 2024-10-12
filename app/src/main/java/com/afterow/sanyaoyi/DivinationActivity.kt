@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.afterow.sanyaoyi.databinding.ActivityDivinationBinding
 import com.tyme.solar.SolarTime
 import java.time.LocalDateTime
-
+import com.afterow.sanyaoyi.GuaCalculator2
 
 class DivinationActivity : AppCompatActivity() {
 
@@ -32,9 +32,30 @@ class DivinationActivity : AppCompatActivity() {
 
         binding.gregorianDateTextView.text = now.toString()
 
-        val name = intent.getStringExtra("name")
-        binding.testto.text =name
 
+       // 主要逻辑
 
+        val calculator = GuaCalculator2()
+
+       // 定义一个三爻的列表，例如代表乾卦（阳阳阳）
+        val targetValue = listOf(1, 1, 1)
+
+       // 调用toggleElement方法
+        val result = calculator.toggleElement(targetValue)
+
+        val textViews1 = arrayOf(
+            binding.gong1, binding.gong2, binding.gong3, binding.gong4,
+            binding.gong5, binding.gong6, binding.gong7, binding.gong8,
+            binding.gong9, binding.gong10, binding.gong11, binding.gong12
+        )
+
+        for (i in textViews1.indices) {
+            textViews1[i].text = result[i].toString()
+        }
+
+        binding.manGua.text = result[12].toString()
+        binding.bianGua.text = result[13].toString()
+        binding.huBen.text = result[14].toString()
+        binding.huBian.text = result[15].toString()
     }
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +9,7 @@
     tools:context=".DivinationActivity">
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="50dp">
+        android:layout_height="80dp">
     </LinearLayout>
 
     <LinearLayout
@@ -39,97 +38,197 @@
             android:layout_height="wrap_content"
             android:text="Four Values"
             android:textSize="18sp"/>
-        <TextView
-            android:id="@+id/testto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="18sp"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp">
-
+        android:layout_height="410dp">
 
         <GridLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:rowCount="3"
-            android:columnCount="3"
-            android:padding="16dp">
+            android:rowCount="4"
+            android:columnCount="4"
+            android:padding="16dp"
+            tools:ignore="ExtraText">
 
             <!-- Row 1 -->
-            <View
+            <TextView
+                android:id="@+id/gong6"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_rowWeight="1"
+                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@android:color/holo_blue_light" />
-            <View
+                android:background="@drawable/border"/>
+            <TextView
+                android:id="@+id/gong7"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="-1dp"
                 android:layout_rowWeight="1"
+                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@android:color/holo_green_light" />
-            <View
+                android:background="@drawable/border"/>
+            <TextView
+                android:id="@+id/gong8"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="-1dp"
                 android:layout_rowWeight="1"
+                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@android:color/holo_orange_light" />
+                android:background="@drawable/border"/>
+            <TextView
+                android:id="@+id/gong9"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="-1dp"
+                android:layout_rowWeight="1"
+                android:gravity="center"
+                android:layout_columnWeight="1"
+                android:background="@drawable/border"/>
+
 
             <!-- Row 2 -->
-            <View
+            <TextView
+                android:id="@+id/gong5"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginTop="-1dp"
                 android:layout_rowWeight="1"
+                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@android:color/holo_red_light" />
-            <View
+                android:background="@drawable/border"/>
+            <TextView
+                android:id="@+id/manGua"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="-1dp"
+                android:layout_marginTop="-1dp"
                 android:layout_rowWeight="1"
+                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@android:color/holo_purple" />
-            <View
+                android:background="@drawable/border"/>
+            <TextView
+                android:id="@+id/bianGua"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="-1dp"
+                android:layout_marginTop="-1dp"
                 android:layout_rowWeight="1"
+                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@android:color/holo_blue_dark" />
+                android:background="@drawable/border"/>
+            <TextView
+                android:id="@+id/gong10"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="-1dp"
+                android:layout_marginTop="-1dp"
+                android:layout_rowWeight="1"
+                android:gravity="center"
+                android:layout_columnWeight="1"
+                android:background="@drawable/border"/>
+
 
             <!-- Row 3 -->
             <TextView
-                android:id="@+id/textViewWithBorder"
+                android:id="@+id/gong4"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginTop="-1dp"
                 android:layout_rowWeight="1"
+                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:padding="10dp"
-                android:textSize="16sp"/>
-            <View
+                android:background="@drawable/border"/>
+            <TextView
+                android:id="@+id/huBen"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="-1dp"
+                android:layout_marginTop="-1dp"
                 android:layout_rowWeight="1"
+                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@android:color/holo_orange_dark" />
-            <View
+                android:background="@drawable/border"/>
+            <TextView
+                android:id="@+id/huBian"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="-1dp"
+                android:layout_marginTop="-1dp"
+                android:layout_rowWeight="1"
+                android:gravity="center"
+                android:layout_columnWeight="1"
+                android:background="@drawable/border"/>
+            <TextView
+                android:id="@+id/gong11"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="-1dp"
+                android:layout_marginTop="-1dp"
+                android:layout_rowWeight="1"
+                android:gravity="center"
+                android:layout_columnWeight="1"
+                android:background="@drawable/border"/>
+
+
+
+            <!-- Row 4 -->
+            <TextView
+                android:id="@+id/gong3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="-1dp"
+                android:layout_rowWeight="1"
+                android:gravity="center"
+                android:layout_columnWeight="1"
+                android:background="@drawable/border"/>
+            <TextView
+                android:id="@+id/gong2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="-1dp"
+                android:layout_marginTop="-1dp"
+                android:layout_rowWeight="1"
+                android:gravity="center"
+                android:layout_columnWeight="1"
+                android:background="@drawable/border"/>
+            <TextView
+                android:id="@+id/gong1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="-1dp"
+                android:layout_marginTop="-1dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:background="@android:color/white" />
+                android:gravity="center"
+                android:background="@drawable/border"/>
+            <TextView
+                android:id="@+id/gong12"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="-1dp"
+                android:layout_marginTop="-1dp"
+                android:layout_rowWeight="1"
+                android:gravity="center"
+                android:layout_columnWeight="1"
+                android:background="@drawable/border"/>
+
+
+
 
         </GridLayout>
 
-        </LinearLayout>
-
+    </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
     </LinearLayout>
 
 </LinearLayout>
