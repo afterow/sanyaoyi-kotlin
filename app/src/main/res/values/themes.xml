@@ -2,6 +2,7 @@
     <!-- 基础应用主题 -->
     <style name="Theme.Sanyaoyi" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- 主要品牌颜色 -->
+        <item name="android:fontFamily">@font/song_myung</item>
         <item name="colorPrimary">@color/purple_500</item> <!-- 主要颜色 -->
         <item name="colorPrimaryVariant">@color/purple_700</item> <!-- 主要颜色变体 -->
         <item name="colorOnPrimary">@color/white</item> <!-- 主要颜色上的文字颜色 -->

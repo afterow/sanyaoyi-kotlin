@@ -51,14 +51,14 @@ class GuaCalculator2 {
         val huBen = findKeyByValue(bagua, flattenedList.subList(1, 4))
         val huBian = findKeyByValue(bagua, flattenedList.subList(2, 5))
 
-        val resultTmpList = flattenedList.map { if (it == 0) 1 else 0 }
+        // val resultTmpList = flattenedList.map { if (it == 0) 1 else 0 }
 
-        val cuoBen = findKeyByValue(bagua, resultTmpList.subList(0, 3))
-        val cuoBian = findKeyByValue(bagua, resultTmpList.subList(3, 6))
+        // val cuoBen = findKeyByValue(bagua, resultTmpList.subList(0, 3))
+        // val cuoBian = findKeyByValue(bagua, resultTmpList.subList(3, 6))
 
-        val reverseTmpList = flattenedList.reversed()
-        val zongBen = findKeyByValue(bagua, reverseTmpList.subList(0, 3))
-        val zongBian = findKeyByValue(bagua, reverseTmpList.subList(3, 6))
+        // val reverseTmpList = flattenedList.reversed()
+        // val zongBen = findKeyByValue(bagua, reverseTmpList.subList(0, 3))
+        // val zongBian = findKeyByValue(bagua, reverseTmpList.subList(3, 6))
 
 
         val ixman = (manGua.getOrNull(2)as Int)

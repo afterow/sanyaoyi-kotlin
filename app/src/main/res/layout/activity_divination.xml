@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:fontFamily="@font/song_myung"
     android:padding="16dp"
     tools:context=".DivinationActivity">
     <LinearLayout
@@ -22,13 +23,15 @@
             android:id="@+id/gregorianDateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/song_myung"
             android:text="Gregorian Date and Time"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/lunarDateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/song_myung"
             android:text="Lunar Date and Time"
             android:textSize="18sp"/>
 
