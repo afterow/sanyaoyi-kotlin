@@ -77,16 +77,18 @@ class GuaCalculator2 {
 
         val ziGong: String = takeLastBasedOnLength(indexBigGua(ixbianGua, ixhuBian))
         val chouGong: String = takeLastBasedOnLength(indexBigGua(ixman, ixhuBen))
-        val yinGong: String = takeLastBasedOnLength(indexBigGua(ixhuBian, ixhuBen))
-        val maoGong: String = takeLastBasedOnLength(indexBigGua(ixhuBian, ixhuBian))
-        val chenGong: String = takeLastBasedOnLength(indexBigGua(ixman, ixbianGua))
-        val siGong: String = takeLastBasedOnLength(indexBigGua(ixman, ixhuBian))
+        val yinGong: String = takeLastBasedOnLength(indexBigGua(ixbianGua, ixhuBen))
+        val maoGong: String = takeLastBasedOnLength(indexBigGua(ixhuBian,ixhuBen))
+
+        val chenGong: String = takeLastBasedOnLength(indexBigGua(ixbianGua,ixman))
+        val siGong: String = takeLastBasedOnLength(indexBigGua(ixhuBian,ixman))
         val wuGong: String = takeLastBasedOnLength(indexBigGua(ixhuBen, ixman))
         val weiGong: String = takeLastBasedOnLength(indexBigGua(ixhuBian, ixbianGua))
+
         val shenGong: String = takeLastBasedOnLength(indexBigGua(ixhuBen, ixbianGua))
         val youGong: String = takeLastBasedOnLength(indexBigGua(ixbianGua, ixman))
-        val xuGong: String = takeLastBasedOnLength(indexBigGua(ixhuBian, ixman))
-        val haiGong: String = takeLastBasedOnLength(indexBigGua(ixhuBian, ixman))
+        val xuGong: String = takeLastBasedOnLength(indexBigGua( ixhuBen,ixhuBian))
+        val haiGong: String = takeLastBasedOnLength(indexBigGua(ixman,ixhuBian))
 
         val listOfStrings = listOf(
             ziGong,
