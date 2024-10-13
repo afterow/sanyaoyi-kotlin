@@ -6,7 +6,10 @@
     android:gravity="center_horizontal"
     android:id="@+id/latmian"
     android:padding="16dp">
-
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="80dp">
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +20,7 @@
 
         <TextView
             android:id="@+id/yao1"
-            android:layout_width="362dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
@@ -25,12 +28,12 @@
             android:gravity="center"
             android:text="⚋"
             android:textScaleX="3"
-            android:textSize="100sp"
+            android:textSize="85sp"
             tools:ignore="HardcodedText,TextSizeCheck,DuplicateSpeakableTextCheck" />
 
         <TextView
             android:id="@+id/yao2"
-            android:layout_width="362dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
@@ -38,13 +41,13 @@
             android:gravity="center"
             android:text="⚋"
             android:textScaleX="3"
-            android:textSize="100sp"
+            android:textSize="85sp"
             tools:ignore="HardcodedText,TextSizeCheck" />
 
         <!-- 第三个爻 -->
         <TextView
             android:id="@+id/yao3"
-            android:layout_width="362dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
@@ -52,7 +55,7 @@
             android:gravity="center"
             android:text="⚋"
             android:textScaleX="3"
-            android:textSize="100sp"
+            android:textSize="85sp"
             tools:ignore="HardcodedText,TextSizeCheck" />
 
     </LinearLayout>
