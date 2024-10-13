@@ -86,7 +86,7 @@ class GuaCalculator2 {
         val weiGong: String = takeLastBasedOnLength(indexBigGua(ixhuBian, ixbianGua))
 
         val shenGong: String = takeLastBasedOnLength(indexBigGua(ixhuBen, ixbianGua))
-        val youGong: String = takeLastBasedOnLength(indexBigGua(ixbianGua, ixman))
+        val youGong: String = takeLastBasedOnLength(indexBigGua(ixman, ixbianGua))
         val xuGong: String = takeLastBasedOnLength(indexBigGua( ixhuBen,ixhuBian))
         val haiGong: String = takeLastBasedOnLength(indexBigGua(ixman,ixhuBian))
 
