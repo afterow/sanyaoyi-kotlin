@@ -19,13 +19,17 @@ class DivinationActivity : AppCompatActivity() {
         val now = LocalDateTime.now()
 
         // 北京时间2005年12月23日，08:37:00转八字
-        val eightChar2 = SolarTime.fromYmdHms( now.year, now.monthValue, now.dayOfMonth,
-            now.hour, now.minute, now.second).lunarHour.eightChar
+        val eightChar2 = SolarTime.fromYmdHms(
+            now.year, now.monthValue, now.dayOfMonth,
+            now.hour, now.minute, now.second
+        ).lunarHour.eightChar
 
         binding.fourValuesTextView.text = eightChar2.toString()
 
-        val lunarHour2 = SolarTime.fromYmdHms( now.year, now.monthValue, now.dayOfMonth,
-            now.hour, now.minute, now.second).lunarHour
+        val lunarHour2 = SolarTime.fromYmdHms(
+            now.year, now.monthValue, now.dayOfMonth,
+            now.hour, now.minute, now.second
+        ).lunarHour
 
         binding.lunarDateTextView.text = lunarHour2.toString()
 
@@ -33,29 +37,30 @@ class DivinationActivity : AppCompatActivity() {
         binding.gregorianDateTextView.text = now.toString()
 
 
-       // 主要逻辑
+        val listString = intent.getStringExtra("listData")
+
+        val mutableList =
+            listString?.split(",")?.map { it.toIntOrNull() }?.filterNotNull()?.toMutableList()
+                ?: mutableListOf()
+
 
         val calculator = GuaCalculator2()
-
-       // 定义一个三爻的列表，例如代表乾卦（阳阳阳）
-        val targetValue = listOf(1, 1, 1)
-
-       // 调用toggleElement方法
-        val result = calculator.toggleElement(targetValue)
+        val result = calculator.toggleElement(mutableList)
 
         val textViews1 = arrayOf(
             binding.gong1, binding.gong2, binding.gong3, binding.gong4,
             binding.gong5, binding.gong6, binding.gong7, binding.gong8,
             binding.gong9, binding.gong10, binding.gong11, binding.gong12
         )
-
-        for (i in textViews1.indices) {
-            textViews1[i].text = result[i].toString()
-        }
-
         binding.manGua.text = result[12].toString()
         binding.bianGua.text = result[13].toString()
         binding.huBen.text = result[14].toString()
         binding.huBian.text = result[15].toString()
+        for (i in textViews1.indices) {
+            textViews1[i].text = result[i].toString()
+        }
+
+
     }
+
 }

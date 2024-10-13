@@ -1,19 +1,19 @@
 package com.afterow.sanyaoyi
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
-import com.afterow.sanyaoyi.GuaCalculator
 
 
-class MainActivity2 : AppCompatActivity() {
+class SelectActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
+        setContentView(R.layout.activity_select)
 
         val yao1: TextView = findViewById(R.id.yao1)
         val yao2: TextView = findViewById(R.id.yao2)
@@ -43,13 +43,18 @@ class MainActivity2 : AppCompatActivity() {
                 } else {
                     mutableList.add(0)
                 }
-
             }
-            val test100:TextView = findViewById(R.id.test1)
-            val guaCalculator = GuaCalculator()
-            val targetValue = mutableList
-            val result = guaCalculator.toggleElement(targetValue)
-            test100.text =result
+
+            val listString = mutableList.joinToString(",") { it.toString() }
+
+            val intent = Intent(this, DivinationActivity::class.java)
+            intent.putExtra("listData", listString)
+            startActivity(intent)
         }
+
+
+
     }
 }
+
+

@@ -38,9 +38,9 @@ class GuaCalculator2 {
         return null
     }
 
-    fun toggleElement(targetValue: List<Int>): String {
+    fun toggleElement(targetValue: List<Int>):List<Any> {
         val tmpList = mutableListOf<Int>().apply { addAll(targetValue) }
-        val manGua = findKeyByValue(bagua, tmpList) ?: return "本卦未找到"
+        val manGua = findKeyByValue(bagua, tmpList) ?: return listOf("本卦未找到")
 
         val totalSum = tmpList.sumOf { it }
         val yaobian = totalSum % 3
@@ -88,41 +88,41 @@ class GuaCalculator2 {
         val xuGong: String = takeLastBasedOnLength(indexBigGua(ixhuBian, ixman))
         val haiGong: String = takeLastBasedOnLength(indexBigGua(ixhuBian, ixman))
 
-        return  buildString {
-            append(ziGong)
-            append(chouGong)
-            append(yinGong)
-            append(maoGong)
-            append(chenGong)
-            append(siGong)
-            append(wuGong)
-            append(weiGong)
-            append(shenGong)
-            append(youGong)
-            append(xuGong)
-            append(haiGong)
+        val listOfStrings = listOf(
+            ziGong,
+            chouGong,
+            yinGong,
+            maoGong,
+            chenGong,
+            siGong,
+            wuGong,
+            weiGong,
+            shenGong,
+            youGong,
+            xuGong,
+            haiGong,
+            manGua.getOrNull(0) ?: "null",
+            bianGua.getOrNull(0) ?: "null",
+            huBen.getOrNull(0) ?: "null",
+            huBian.getOrNull(0) ?: "null"
+        )
 
-            // 追加其他值
-            append(manGua[0])
-            append(bianGua.getOrNull(0) ?: "null") // 使用 ?: 提供默认值以防 getOrNull 返回 null
-            append(huBen.getOrNull(0) ?: "null")
-            append(huBian.getOrNull(0) ?: "null")
-        }
+        return listOfStrings
     }
 }
 
-//fun main() {
-//    // 创建GuaCalculator实例
-//    val calculator = GuaCalculator2()
-//
-//    // 定义一个三爻的列表，例如代表乾卦（阳阳阳）
-//    val targetValue = listOf(1, 1, 1)
-//
-//    // 调用toggleElement方法
-//    val result = calculator.toggleElement(targetValue)
-//    // 打印结果
-//    println(result)
-//    println(result[1])
-//    println(result[2])
-//
-//}
+fun main() {
+   // 创建GuaCalculator实例
+   val calculator = GuaCalculator2()
+
+   // 定义一个三爻的列表，例如代表乾卦（阳阳阳）
+   val targetValue = listOf(1, 1, 1)
+
+   // 调用toggleElement方法
+   val result = calculator.toggleElement(targetValue)
+   // 打印结果
+    println(result[0])
+
+}
+
+

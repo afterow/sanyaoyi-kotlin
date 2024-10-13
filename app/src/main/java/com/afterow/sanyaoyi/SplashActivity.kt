@@ -18,7 +18,7 @@ class SplashActivity : AppCompatActivity() {
 
         // 延迟3秒（3000毫秒）后跳转到MainActivity
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             finish() // 关闭SplashActivity
         }, 300)
