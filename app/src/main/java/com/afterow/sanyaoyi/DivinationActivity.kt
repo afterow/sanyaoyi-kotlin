@@ -1,10 +1,13 @@
 package com.afterow.sanyaoyi
 import android.os.Bundle
+import android.widget.Button
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.afterow.sanyaoyi.databinding.ActivityDivinationBinding
 import com.tyme.solar.SolarTime
 import java.time.LocalDateTime
-import com.afterow.sanyaoyi.GuaCalculator2
+import com.afterow.sanyaoyi.Utils.GuaCalculator2
+import com.afterow.sanyaoyi.Utils.ScreenshotUtils
 
 class DivinationActivity : AppCompatActivity() {
 
@@ -60,7 +63,13 @@ class DivinationActivity : AppCompatActivity() {
             textViews1[i].text = result[i].toString()
         }
 
+        var saveButton: Button = findViewById(R.id.save_button2)
+        var scrollView1: LinearLayout = findViewById(R.id.scrollView1)  // 需要保存为图片view
+        var scrollView2: LinearLayout = findViewById(R.id.scrollView2)  // 需要保存为图片view
 
+        saveButton.setOnClickListener {
+            ScreenshotUtils.captureAndShowScreenshot(this, scrollView1, scrollView2,fileName="文件名")
+        }
     }
-
 }
+

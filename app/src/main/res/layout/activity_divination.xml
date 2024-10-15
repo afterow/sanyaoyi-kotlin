@@ -1,23 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:fontFamily="@font/song_myung"
-    android:padding="16dp"
-    tools:context=".DivinationActivity">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="80dp">
-    </LinearLayout>
+    tools:ignore="Orientation">
 
     <LinearLayout
+        android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/gregorianDateTextView"
@@ -33,27 +30,30 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/song_myung"
             android:text="Lunar Date and Time"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/fourValuesTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Four Values"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="410dp">
+        android:layout_height="0dp"
+        android:layout_weight="5"> <!-- Adjust the weight according to the required visibility -->
 
         <GridLayout
+            android:id="@+id/scrollView2"
+            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:rowCount="4"
+            android:layout_height="500dp"
             android:columnCount="4"
             android:padding="16dp"
+            android:rowCount="4"
             tools:ignore="ExtraText">
 
             <!-- Row 1 -->
@@ -62,174 +62,155 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_rowWeight="1"
-                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@drawable/border"/>
+                android:background="@drawable/border"
+                android:gravity="center" />
             <TextView
                 android:id="@+id/gong7"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="-1dp"
                 android:layout_rowWeight="1"
-                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@drawable/border"/>
+                android:background="@drawable/border"
+                android:gravity="center" />
             <TextView
                 android:id="@+id/gong8"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="-1dp"
                 android:layout_rowWeight="1"
-                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@drawable/border"/>
+                android:background="@drawable/border"
+                android:gravity="center" />
             <TextView
                 android:id="@+id/gong9"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="-1dp"
                 android:layout_rowWeight="1"
-                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@drawable/border"/>
+                android:background="@drawable/border"
+                android:gravity="center" />
 
+            <!-- ... Other TextViews ... -->
 
             <!-- Row 2 -->
             <TextView
                 android:id="@+id/gong5"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="-1dp"
                 android:layout_rowWeight="1"
-                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@drawable/border"/>
+                android:background="@drawable/border"
+                android:gravity="center" />
             <TextView
                 android:id="@+id/manGua"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="-1dp"
-                android:layout_marginTop="-1dp"
                 android:layout_rowWeight="1"
-                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@drawable/border"/>
+                android:background="@drawable/border"
+                android:gravity="center" />
             <TextView
                 android:id="@+id/bianGua"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="-1dp"
-                android:layout_marginTop="-1dp"
                 android:layout_rowWeight="1"
-                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@drawable/border"/>
+                android:background="@drawable/border"
+                android:gravity="center" />
             <TextView
                 android:id="@+id/gong10"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="-1dp"
-                android:layout_marginTop="-1dp"
                 android:layout_rowWeight="1"
-                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@drawable/border"/>
-
+                android:background="@drawable/border"
+                android:gravity="center" />
+            <!-- ... Other TextViews ... -->
 
             <!-- Row 3 -->
             <TextView
                 android:id="@+id/gong4"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="-1dp"
                 android:layout_rowWeight="1"
-                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@drawable/border"/>
+                android:background="@drawable/border"
+                android:gravity="center" />
             <TextView
                 android:id="@+id/huBen"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="-1dp"
-                android:layout_marginTop="-1dp"
                 android:layout_rowWeight="1"
-                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@drawable/border"/>
+                android:background="@drawable/border"
+                android:gravity="center" />
             <TextView
                 android:id="@+id/huBian"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="-1dp"
-                android:layout_marginTop="-1dp"
                 android:layout_rowWeight="1"
-                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@drawable/border"/>
+                android:background="@drawable/border"
+                android:gravity="center" />
             <TextView
                 android:id="@+id/gong11"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="-1dp"
-                android:layout_marginTop="-1dp"
                 android:layout_rowWeight="1"
-                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@drawable/border"/>
-
-
+                android:background="@drawable/border"
+                android:gravity="center" />
+            <!-- ... Other TextViews ... -->
 
             <!-- Row 4 -->
+
             <TextView
                 android:id="@+id/gong3"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="-1dp"
                 android:layout_rowWeight="1"
-                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@drawable/border"/>
+                android:background="@drawable/border"
+                android:gravity="center" />
             <TextView
                 android:id="@+id/gong2"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="-1dp"
-                android:layout_marginTop="-1dp"
                 android:layout_rowWeight="1"
-                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@drawable/border"/>
+                android:background="@drawable/border"
+                android:gravity="center" />
             <TextView
                 android:id="@+id/gong1"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="-1dp"
-                android:layout_marginTop="-1dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:gravity="center"
-                android:background="@drawable/border"/>
+                android:background="@drawable/border"
+                android:gravity="center" />
             <TextView
                 android:id="@+id/gong12"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="-1dp"
-                android:layout_marginTop="-1dp"
                 android:layout_rowWeight="1"
-                android:gravity="center"
                 android:layout_columnWeight="1"
-                android:background="@drawable/border"/>
-
-
-
+                android:background="@drawable/border"
+                android:gravity="center" />
 
         </GridLayout>
 
     </LinearLayout>
 
+
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <Button
+            android:id="@+id/save_button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="保存图片" />
 
 
     </LinearLayout>
