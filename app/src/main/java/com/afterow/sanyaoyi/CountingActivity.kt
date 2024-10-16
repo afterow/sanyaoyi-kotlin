@@ -26,20 +26,18 @@ class CountingActivity : AppCompatActivity() {
             )
 
             val mutableList = mutableListOf<Int>()
-            repeat(3) {
-                if (inputs.isNotEmpty()) {
-                    val number = inputs[0]
-                    if (number != null) {
-                        if (number % 2 == 0) {
-                            mutableList.add(0) // 偶数
-                        } else {
-                            mutableList.add(1) // 奇数
-                        }
+            for (input in inputs) {
+                // 检查 input 是否非空
+                if (input != null) {
+                    // 判断是奇数还是偶数
+                    if (input % 2 == 0) {
+                        mutableList.add(0) // 偶数
+                    } else {
+                        mutableList.add(1) // 奇数
                     }
                 }
             }
 
-                    // 过滤掉null值
             val validInputs = mutableList.filterNotNull()
 
             if (validInputs.size > 2) {  // 确保至少有一个有效的输入
