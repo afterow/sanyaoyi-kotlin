@@ -13,8 +13,12 @@
         android:theme="@style/Theme.Sanyaoyi"
         tools:targetApi="31">
         <activity
+            android:name=".CountingActivity"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".TimeScheduleActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
