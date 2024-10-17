@@ -1,13 +1,11 @@
-name: Android CI/cd
+name: Android automatically builds and releases Release :robot:	
 
 env:
   # Google Play 商店的名称
   playstore_name: Frogobox ID
 
 on:
-  # 在推送或拉取请求事件时触发工作流，但仅限于默认和受保护的分支
   workflow_dispatch:
-  # 工作流将被调度到默认队列
 
 jobs:
   build:
@@ -17,11 +15,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # 设置当前日期作为环境变量
       - name: 设置当前日期作为环境变量
         run: echo "date_today=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
-      # 设置仓库名称作为环境变量
       - name: 设置仓库名称作为环境变量
         run: echo "repository_name=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
 
@@ -30,9 +26,7 @@ jobs:
         id: get_version
         run: |
           VERSION_NAME=$(sed -n 's/.*versionName *= *"\(.*\)".*/\1/p' ./app/build.gradle.kts)
-          echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV # 设置环境变量
-
-          
+          echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV 
 
       
       - uses: actions/setup-java@v4
@@ -65,21 +59,11 @@ jobs:
       - name: 构建带签名的 APK
         run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file=./key.keystore -Pandroid.injected.signing.store.password=${{ env.KEYSTORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ env.KEY_ALIAS }} -Pandroid.injected.signing.key.alias.password=${{ env.KEY_ALIAS_PASSWORD }}
 
-      - name: List APK outputs
-        run: ls -l app/build/outputs/apk/release/
-      
-
-      - name: 构建的apk发表
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - ${{ env.VERSION_NAME }} - Signed APK(s)
-          path: ./app/build/outputs/apk/release/*.apk
-
-      - name: Create Release
+      - name: 发布 Release
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ env.VERSION_NAME }}  # 版本标签
+          tag_name: v${{ env.VERSION_NAME }}  
           name: Release ${{ env.VERSION_NAME }}  
           draft: false
           prerelease: false
