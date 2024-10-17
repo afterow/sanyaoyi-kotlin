@@ -1,4 +1,4 @@
-name: Android automatically builds and releases Release :robot:	
+name: Android automatically builds and releases Release
 
 env:
   # Google Play 商店的名称
