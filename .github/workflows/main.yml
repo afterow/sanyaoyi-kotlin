@@ -59,12 +59,16 @@ jobs:
       - name: 构建带签名的 APK
         run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file=./key.keystore -Pandroid.injected.signing.store.password=${{ env.KEYSTORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ env.KEY_ALIAS }} -Pandroid.injected.signing.key.alias.password=${{ env.KEY_ALIAS_PASSWORD }}
 
+      - name: 重命名 APK 文件
+        run: |
+          mv ./app/build/outputs/apk/release/app-release.apk ./app/build/outputs/apk/release/sanyao-${{ env.VERSION_NAME }}.apk
+
       - name: 发布 Release
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ env.VERSION_NAME }}  
-          name: Release ${{ env.VERSION_NAME }}  
+          name: sanyao ${{ env.VERSION_NAME }} Release  
           draft: false
           prerelease: false
           files: ./app/build/outputs/apk/release/*.apk  
