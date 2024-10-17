@@ -1,13 +1,19 @@
 package com.afterow.sanyaoyi
+import android.content.res.Resources
+import android.graphics.Point
+import android.graphics.Rect
 import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.afterow.sanyaoyi.Utils.GuaCalculator2
+import com.afterow.sanyaoyi.Utils.ScreenshotUtils
 import com.afterow.sanyaoyi.databinding.ActivityDivinationBinding
 import com.tyme.solar.SolarTime
 import java.time.LocalDateTime
-import com.afterow.sanyaoyi.Utils.GuaCalculator2
-import com.afterow.sanyaoyi.Utils.ScreenshotUtils
+
 
 class DivinationActivity : AppCompatActivity() {
 
@@ -38,6 +44,14 @@ class DivinationActivity : AppCompatActivity() {
 
 
         binding.gregorianDateTextView.text = now.toString()
+
+        window.decorView.systemUiVisibility = (
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        or View.SYSTEM_UI_FLAG_FULLSCREEN )
 
 
         val listString = intent.getStringExtra("listData")
