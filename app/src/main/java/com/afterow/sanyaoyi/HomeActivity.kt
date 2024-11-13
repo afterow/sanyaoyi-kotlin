@@ -59,7 +59,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // 通过binding对象获取按钮并设置点击事件监听器
+        // 通过binding对象获取按钮并设置点击事件监听器 报数排盘
         binding.textViewBaoShu.setOnClickListener {
             // 创建Intent来启动SecondActivity
             val intent = Intent(this, CountingActivity::class.java)

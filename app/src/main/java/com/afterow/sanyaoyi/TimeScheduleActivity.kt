@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.afterow.sanyaoyi.Utils.ScreenshotUtils
+import com.afterow.sanyaoyi.utils.ScreenshotUtils
 import com.afterow.sanyaoyi.databinding.ActivityTimeScheduleBinding
 import com.tyme.solar.SolarTime
 import java.time.LocalDateTime
@@ -35,6 +35,8 @@ class TimeScheduleActivity : AppCompatActivity() {
 
         binding.lunarDateTextView.text = lunarHour2.toString()
         binding.gregorianDateTextView.text = now.toString()
+
+
 
 
         val saveButton: Button = findViewById(R.id.save_button)

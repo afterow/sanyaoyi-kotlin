@@ -1,9 +1,8 @@
-package com.afterow.sanyaoyi.Utils
+package com.afterow.sanyaoyi.utils
 
 import android.content.ContentValues
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Rect
 import android.net.Uri
 import android.widget.ImageView
 import android.widget.Toast

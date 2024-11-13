@@ -1,15 +1,11 @@
 package com.afterow.sanyaoyi
-import android.content.res.Resources
-import android.graphics.Point
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.afterow.sanyaoyi.Utils.GuaCalculator2
-import com.afterow.sanyaoyi.Utils.ScreenshotUtils
+import com.afterow.sanyaoyi.utils.GuaCalculator
+import com.afterow.sanyaoyi.utils.ScreenshotUtils
 import com.afterow.sanyaoyi.databinding.ActivityDivinationBinding
 import com.tyme.solar.SolarTime
 import java.time.LocalDateTime
@@ -61,7 +57,7 @@ class DivinationActivity : AppCompatActivity() {
                 ?: mutableListOf()
 
 
-        val calculator = GuaCalculator2()
+        val calculator = GuaCalculator()
         val result = calculator.toggleElement(mutableList)
 
         val textViews1 = arrayOf(
