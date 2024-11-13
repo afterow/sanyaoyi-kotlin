@@ -65,21 +65,12 @@ class GuaCalculator {
         return null
     }
 
-    private fun takeLastBasedOnOddEven(input: List<Int>): List<String> {
-        return input.map { number ->
-            if (number % 2 == 1) {
-                // 奇数，返回 "1"
-                "1"
-            } else {
-                // 偶数，返回 "0"
-                "0"
-            }
-        }
-    }
 
     fun toggleElement(targetValue: List<Int>): List<Any> {
+        val tmpList = targetValue?.map { if (it % 2 == 0) 0 else 1 }?.toMutableList() ?: mutableListOf()
+        val targetValue = targetValue?.map { if (it % 2 == 0) 0 else 1 }?.toMutableList() ?: mutableListOf()
+
         // 将输入的整数列表转换为 0 和 1 的形式
-        val tmpList = targetValue.map { if (it % 2 == 0) 0 else 1 }.toMutableList()
 
         // 计算当前卦象
         val manGua = findKeyByValue(bagua, tmpList) ?: return listOf("本卦未找到")
@@ -154,6 +145,6 @@ class GuaCalculator {
     // 使用示例
 fun main() {
     val processor = GuaCalculator()
-    val results = processor.toggleElement(listOf(9, 1, 0))
+    val results = processor.toggleElement(listOf(9, 8, 0))
     println(results)
 }
