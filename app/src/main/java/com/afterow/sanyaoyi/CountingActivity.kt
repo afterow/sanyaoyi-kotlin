@@ -19,7 +19,7 @@ class CountingActivity : AppCompatActivity() {
             val editText2: EditText = findViewById(R.id.editText2)
             val editText3: EditText = findViewById(R.id.editText3)
 
-            var inputs: List<Int?> = listOf(
+            val inputs: List<Int?> = listOf(
                 editText1.text.toString().toIntOrNull(),
                 editText2.text.toString().toIntOrNull(),
                 editText3.text.toString().toIntOrNull()
@@ -38,7 +38,7 @@ class CountingActivity : AppCompatActivity() {
                 }
             }
 
-            val validInputs = mutableList.filterNotNull()
+            val validInputs = mutableList.toList()
 
             if (validInputs.size > 2) {  // 确保至少有一个有效的输入
                 val listString = validInputs.joinToString(",") { it.toString() }
