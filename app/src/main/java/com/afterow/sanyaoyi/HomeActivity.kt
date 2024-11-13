@@ -33,15 +33,15 @@ class HomeActivity : AppCompatActivity() {
 
         val eightCharlist = eightChar.toList()
 
-        binding.niangan.text = eightCharlist.get(0).toString()
-        binding.yuegan.text = eightCharlist.get(2).toString()
-        binding.rigan.text = eightCharlist.get(4).toString()
-        binding.shigan.text = eightCharlist.get(6).toString()
+        binding.niangan.text = eightCharlist[0].toString()
+        binding.yuegan.text = eightCharlist[2].toString()
+        binding.rigan.text = eightCharlist[4].toString()
+        binding.shigan.text = eightCharlist[6].toString()
 
-        binding.nianzhi.text = eightCharlist.get(1).toString()
-        binding.yuezhi.text = eightCharlist.get(3).toString()
-        binding.rizhi.text = eightCharlist.get(5).toString()
-        binding.shizhi.text = eightCharlist.get(7).toString()
+        binding.nianzhi.text = eightCharlist[1].toString()
+        binding.yuezhi.text = eightCharlist[3].toString()
+        binding.rizhi.text = eightCharlist[5].toString()
+        binding.shizhi.text = eightCharlist[7].toString()
 
         // 通过binding对象获取按钮并设置点击事件监听器
         binding.textViewPaiPan.setOnClickListener {
