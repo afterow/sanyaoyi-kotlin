@@ -141,7 +141,7 @@ class GuaCalculator {
             xuGong,
             haiGong,
             manGua.getOrNull(0) ?: "null",
-            bianGua?.getOrNull(0) ?: "null",
+            bianGua.getOrNull(0) ?: "null",
             huBen.getOrNull(0) ?: "null",
             huBian.getOrNull(0) ?: "null"
         )
