@@ -1,4 +1,5 @@
 package com.afterow.sanyaoyi
+
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -9,7 +10,6 @@ import com.afterow.sanyaoyi.utils.ScreenshotUtils
 import com.afterow.sanyaoyi.databinding.ActivityDivinationBinding
 import com.tyme.solar.SolarTime
 import java.time.LocalDateTime
-
 
 class DivinationActivity : AppCompatActivity() {
 
@@ -38,7 +38,6 @@ class DivinationActivity : AppCompatActivity() {
 
         binding.lunarDateTextView.text = lunarHour2.toString()
 
-
         binding.gregorianDateTextView.text = now.toString()
 
         window.decorView.systemUiVisibility = (
@@ -49,16 +48,14 @@ class DivinationActivity : AppCompatActivity() {
                         or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         or View.SYSTEM_UI_FLAG_FULLSCREEN )
 
-
         val listString = intent.getStringExtra("listData")
 
         val mutableList =
             listString?.split(",")?.map { it.toIntOrNull() }?.filterNotNull()?.toMutableList()
                 ?: mutableListOf()
 
-
         val calculator = GuaCalculator()
-        val result = calculator.toggleElement(mutableList)
+        val result = calculator.toggleElement(mutableList, listOf(0, 2)) // 传入动爻索引列表
 
         val textViews1 = arrayOf(
             binding.gong1, binding.gong2, binding.gong3, binding.gong4,
@@ -78,8 +75,7 @@ class DivinationActivity : AppCompatActivity() {
         var scrollView2: LinearLayout = findViewById(R.id.scrollView2)  // 需要保存为图片view
 
         saveButton.setOnClickListener {
-            ScreenshotUtils.captureAndShowScreenshot(this, scrollView1, scrollView2,fileName="文件名")
+            ScreenshotUtils.captureAndShowScreenshot(this, scrollView1, scrollView2, fileName = "文件名")
         }
     }
 }
-
