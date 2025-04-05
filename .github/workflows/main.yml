@@ -1,77 +1,96 @@
-name: Android automatically builds and releases Release
+name: Android CI/CD - Build & Release
 
 env:
-  # Google Play 商店的名称
-  playstore_name: Frogobox ID
+  # 全局环境变量
+  APK_OUTPUT_PATH: ./app/build/outputs/apk/release
+  KEYSTORE_FILE: ./keystore.jks  # 更清晰的密钥库路径
+  GRADLE_CACHE_DIR: ~/.gradle/caches
 
 on:
   workflow_dispatch:
+  push:
+    tags:
+      - 'v*'  # 支持通过 tag 触发自动发布
+    branches:
+      - main  # main 分支推送时触发测试
 
 jobs:
-  build:
-
+  build-and-release:
     runs-on: ubuntu-latest
+    timeout-minutes: 30  # 防止卡死
 
     steps:
-      - uses: actions/checkout@v4
-
-      - name: 设置当前日期作为环境变量
-        run: echo "date_today=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-
-      - name: 设置仓库名称作为环境变量
-        run: echo "repository_name=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
-
-      
-      - name: 从 build.gradle.kts 读取版本
-        id: get_version
-        run: |
-          VERSION_NAME=$(sed -n 's/.*versionName *= *"\(.*\)".*/\1/p' ./app/build.gradle.kts)
-          echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV 
-
-      
-      - uses: actions/setup-java@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
         with:
-          distribution: 'zulu' # 请参见 '支持的发行版' 以获取可用选项
-          java-version: '22'
-          cache: 'gradle'
+          fetch-depth: 0  # 获取完整提交历史（用于生成 changelog）
 
-      - name: 更改 wrapper 权限
+      # ================= 环境配置优化 =================
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'  # 推荐使用 Adoptium/Temurin
+          java-version: '22'       # Android 推荐 JDK 版本
+          cache: 'gradle'          # 自动缓存 gradle
+
+      - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-      # 运行测试构建
-      - name: 运行 gradle 测试
-        run: ./gradlew test
-
-       # 解码 keystore
-      - name: Save Keystore
-        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > key.keystore 2>/dev/null
-        shell: bash
-
-
-      # 读取签名配置
-      - name: 读取签名配置
+      # ================= 版本信息提取优化 =================
+      - name: Extract Version Info
+        id: version-info
         run: |
-          echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> $GITHUB_ENV
-          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> $GITHUB_ENV
-          echo "KEY_ALIAS_PASSWORD=${{ secrets.KEY_ALIAS_PASSWORD }}" >> $GITHUB_ENV
+          # 使用 gradle 命令提取版本更可靠
+          VERSION_NAME=$(./gradlew -q getVersionName)
+          echo "version_name=${VERSION_NAME}" >> $GITHUB_OUTPUT
+          echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV
 
-      # 使用签名构建 APK
-      - name: 构建带签名的 APK
-        run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file=./key.keystore -Pandroid.injected.signing.store.password=${{ env.KEYSTORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ env.KEY_ALIAS }} -Pandroid.injected.signing.key.alias.password=${{ env.KEY_ALIAS_PASSWORD }}
+      # ================= 构建阶段优化 =================
+      - name: Run Unit Tests
+        run: ./gradlew test --stacktrace
 
-      - name: 重命名 APK 文件
+      - name: Build Signed APK
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_ALIAS_PASSWORD: ${{ secrets.KEY_ALIAS_PASSWORD }}
         run: |
-          mv ./app/build/outputs/apk/release/app-release.apk ./app/build/outputs/apk/release/sanyao-${{ env.VERSION_NAME }}.apk
+          # 更安全的密钥处理方式
+          echo "$KEYSTORE_BASE64" | base64 --decode > $KEYSTORE_FILE
+          ./gradlew assembleRelease \
+            -Pandroid.injected.signing.store.file=$KEYSTORE_FILE \
+            -Pandroid.injected.signing.store.password=$KEYSTORE_PASSWORD \
+            -Pandroid.injected.signing.key.alias=$KEY_ALIAS \
+            -Pandroid.injected.signing.key.password=$KEY_ALIAS_PASSWORD
 
-      - name: 发布 Release
-        id: create_release
+      # ================= 产物处理优化 =================
+      - name: Rename APK
+        run: |
+          TIMESTAMP=$(date +'%Y%m%d-%H%M')
+          NEW_NAME="sanyao-${{ env.VERSION_NAME }}-${TIMESTAMP}.apk"
+          mv "$APK_OUTPUT_PATH/app-release.apk" "$APK_OUTPUT_PATH/${NEW_NAME}"
+          echo "APK_PATH=$APK_OUTPUT_PATH/${NEW_NAME}" >> $GITHUB_ENV
+
+      # ================= 发布阶段优化 =================
+      - name: Generate Changelog
+        id: changelog
+        run: |
+          # 自动生成变更日志
+          git fetch --prune --unshallow  # 确保获取完整历史
+          CHANGELOG=$(git log --pretty=format:"- %s (%h)" HEAD^..HEAD)
+          echo "changelog<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGELOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ env.VERSION_NAME }}  
-          name: sanyao ${{ env.VERSION_NAME }} Release  
+          tag_name: v${{ env.VERSION_NAME }}
+          name: "Sanyao ${{ env.VERSION_NAME }} Release"
+          body: ${{ steps.changelog.outputs.changelog }}  # 自动填充变更日志
+          files: ${{ env.APK_PATH }}
           draft: false
-          prerelease: false
-          files: ./app/build/outputs/apk/release/*.apk  
+          prerelease: ${{ !contains(github.ref, 'refs/tags/') }}  # 非 tag 触发时标记为预发布
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 使用默认 token 更安全
