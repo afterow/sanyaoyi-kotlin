@@ -46,14 +46,12 @@ class DivinationActivity : AppCompatActivity() {
         // 将公历时间显示在界面上
         binding.gregorianDateTextView.text = now.toString()
 
-        // 设置全屏沉浸式模式
+        // 设置沉浸式底部导航栏
         window.decorView.systemUiVisibility = (
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                        or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        or View.SYSTEM_UI_FLAG_FULLSCREEN )
+            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        )
+
 
         // 从 Intent 中获取 "listData" 字段的值
         val listString = intent.getStringExtra("listData")
