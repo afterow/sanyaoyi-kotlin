@@ -1,7 +1,6 @@
-name: Android automatically builds and releases Release
+name: Android自动构建与发布Release版
 
 env:
-  # Google Play 商店的名称
   playstore_name: Frogobox ID
 
 on:
@@ -9,69 +8,91 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
+      # 第一步：检出代码库
       - uses: actions/checkout@v4
 
-      - name: 设置当前日期作为环境变量
+      # 设置构建环境变量
+      - name: 设置构建日期
         run: echo "date_today=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
-      - name: 设置仓库名称作为环境变量
-        run: echo "repository_name=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
+      - name: 获取仓库名称
+        run: echo "repository_name=${{ github.repository }}" | awk -F '/' '{print $2}' >> $GITHUB_ENV
 
-      
-      - name: 从 build.gradle.kts 读取版本
+      # 读取应用版本信息
+      - name: 从Gradle配置解析版本号
         id: get_version
         run: |
           VERSION_NAME=$(sed -n 's/.*versionName *= *"\(.*\)".*/\1/p' ./app/build.gradle.kts)
-          echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV 
+          echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV
 
-      
+      # 配置Java环境
       - uses: actions/setup-java@v4
         with:
-          distribution: 'zulu' # 请参见 '支持的发行版' 以获取可用选项
+          distribution: 'zulu'
           java-version: '22'
           cache: 'gradle'
 
-      - name: 更改 wrapper 权限
+      # 准备构建环境
+      - name: 设置Gradle执行权限
         run: chmod +x ./gradlew
 
-      # 运行测试构建
-      - name: 运行 gradle 测试
+      # 运行单元测试
+      - name: 执行单元测试
         run: ./gradlew test
 
-       # 解码 keystore
-      - name: Save Keystore
-        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > key.keystore 2>/dev/null
+      # 安全处理签名文件
+      - name: 解码密钥库文件
+        run: |
+          # 使用Base64解码密钥库，禁止输出到日志
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > key.keystore 2>/dev/null
+          # 验证文件完整性
+          if [ ! -s key.keystore ]; then
+            echo "::error::Keystore文件解码失败"
+            exit 1
+          fi
         shell: bash
 
-
-      # 读取签名配置
-      - name: 读取签名配置
+      # 配置签名环境变量
+      - name: 注入签名凭据
         run: |
           echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> $GITHUB_ENV
           echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> $GITHUB_ENV
           echo "KEY_ALIAS_PASSWORD=${{ secrets.KEY_ALIAS_PASSWORD }}" >> $GITHUB_ENV
 
-      # 使用签名构建 APK
-      - name: 构建带签名的 APK
-        run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file=./key.keystore -Pandroid.injected.signing.store.password=${{ env.KEYSTORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ env.KEY_ALIAS }} -Pandroid.injected.signing.key.alias.password=${{ env.KEY_ALIAS_PASSWORD }}
-
-      - name: 重命名 APK 文件
+      # 构建发布包
+      - name: 构建签名APK
         run: |
-          mv ./app/build/outputs/apk/release/app-release.apk ./app/build/outputs/apk/release/sanyao-${{ env.VERSION_NAME }}.apk
+          # 使用环境变量传递敏感参数
+          ./gradlew assembleRelease \
+            -Pandroid.injected.signing.store.file=./key.keystore \
+            -Pandroid.injected.signing.store.password=$KEYSTORE_PASSWORD \
+            -Pandroid.injected.signing.key.alias=$KEY_ALIAS \
+            -Pandroid.injected.signing.key.password=$KEY_ALIAS_PASSWORD
 
-      - name: 发布 Release
-        id: create_release
+      # 处理构建产物
+      - name: 重命名APK文件
+        run: |
+          origin_path="./app/build/outputs/apk/release/app-release.apk"
+          target_path="./app/build/outputs/apk/release/sanyao-${{ env.VERSION_NAME }}.apk"
+          
+          if [ -f "$origin_path" ]; then
+            mv "$origin_path" "$target_path"
+          else
+            echo "::error::APK文件未找到: $origin_path"
+            exit 1
+          fi
+
+      # 安全发布Release
+      - name: 创建GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ env.VERSION_NAME }}  
-          name: sanyao ${{ env.VERSION_NAME }} Release  
+          tag_name: v${{ env.VERSION_NAME }}
+          name: sanyao ${{ env.VERSION_NAME }} Release
           draft: false
           prerelease: false
-          files: ./app/build/outputs/apk/release/*.apk  
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-
+          files: ./app/build/outputs/apk/release/*.apk
+        # 自动使用GITHUB_TOKEN，无需显式传递
+        # GitHub自动注入的token具有最小权限
