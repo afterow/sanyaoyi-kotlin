@@ -37,47 +37,83 @@ class GuaCalculator {
         return null
     }
 
-    fun toggleElement(targetValue: List<Int>, yaobianList: List<Int>): List<String> {
-        val tmpList = targetValue.map { if (it % 2 == 0) 0 else 1 }.toMutableList()
+    private fun applyYaoChanges(original: List<Int>, yaobianList: List<Int>): List<Int> {
+        return original.mapIndexed { index, value ->
+            if (yaobianList.contains(index)) {
+                if (value % 2 == 0) 1 else 0
+            } else {
+                if (value % 2 == 0) 0 else 1
+            }
+        }
+    }
 
-        yaobianList.forEach { yaobian ->
-            tmpList[yaobian] = if (tmpList[yaobian] == 1) 0 else 1
+    fun toggleElement(targetValue: List<Int>, yaobianList: List<Int>): List<String> {
+        // 确保输入是6爻
+        if (targetValue.size != 6) {
+            return listOf("请输入6个爻")
         }
 
-        val bianGua = findKeyByValue(tmpList) ?: return listOf("变卦未找到")
-        val flattenedList = targetValue + tmpList
+        // 计算本卦和变卦
+        val benGuaElements = targetValue.map { if (it % 2 == 0) 0 else 1 }
+        val bianGuaElements = applyYaoChanges(targetValue, yaobianList)
 
-        val manGua = findKeyByValue(targetValue.map { if (it % 2 == 0) 0 else 1 }) ?: return listOf("本卦未找到")
+        // 获取上下卦
+        val shangBen = benGuaElements.subList(0, 3)
+        val xiaBen = benGuaElements.subList(3, 6)
+        val shangBian = bianGuaElements.subList(0, 3)
+        val xiaBian = bianGuaElements.subList(3, 6)
 
-        val huBenElements = flattenedList.subList(1, 4).map { if (it % 2 == 0) 0 else 1 }
-        val huBen = findKeyByValue(huBenElements) ?: return listOf("互本未找到")
+        // 获取卦信息
+        val benShang = findKeyByValue(shangBen) ?: return listOf("本卦上卦未找到")
+        val benXia = findKeyByValue(xiaBen) ?: return listOf("本卦下卦未找到")
+        val bianShang = findKeyByValue(shangBian) ?: return listOf("变卦上卦未找到")
+        val bianXia = findKeyByValue(xiaBian) ?: return listOf("变卦下卦未找到")
 
-        val huBianElements = flattenedList.subList(2, 5).map { if (it % 2 == 0) 0 else 1 }
-        val huBian = findKeyByValue(huBianElements) ?: return listOf("互变未找到")
+        // 计算互卦（取2-4爻和3-5爻）
+        val huBenElements = benGuaElements.subList(1, 4) + benGuaElements.subList(2, 5)
+        val huBenShang = huBenElements.subList(0, 3)
+        val huBenXia = huBenElements.subList(3, 6)
+        
+        // 互卦的变卦也要应用动爻变化
+        val huBianElements = bianGuaElements.subList(1, 4) + bianGuaElements.subList(2, 5)
+        val huBianShang = huBianElements.subList(0, 3)
+        val huBianXia = huBianElements.subList(3, 6)
 
-        val ixman = manGua[2] as Int
-        val ixbianGua = bianGua[2] as Int
-        val ixhuBen = huBen[2] as Int
-        val ixhuBian = huBian[2] as Int
+        // 获取互卦信息
+        val huBenShangGua = findKeyByValue(huBenShang) ?: return listOf("互本上卦未找到")
+        val huBenXiaGua = findKeyByValue(huBenXia) ?: return listOf("互本下卦未找到")
+        val huBianShangGua = findKeyByValue(huBianShang) ?: return listOf("互变上卦未找到")
+        val huBianXiaGua = findKeyByValue(huBianXia) ?: return listOf("互变下卦未找到")
+
+        // 获取卦序号
+        val ixBenShang = benShang[2] as Int
+        val ixBenXia = benXia[2] as Int
+        val ixBianShang = bianShang[2] as Int
+        val ixBianXia = bianXia[2] as Int
+        val ixHuBenShang = huBenShangGua[2] as Int
+        val ixHuBenXia = huBenXiaGua[2] as Int
+        val ixHuBianShang = huBianShangGua[2] as Int
+        val ixHuBianXia = huBianXiaGua[2] as Int
 
         fun takeLastBasedOnLength(input: String): String {
             return if (input.length >= 4) input.takeLast(2) else input.takeLast(1)
         }
 
-        val ziGong = takeLastBasedOnLength(indexBigGua(ixbianGua, ixhuBian))
-        val chouGong = takeLastBasedOnLength(indexBigGua(ixman, ixhuBen))
-        val yinGong = takeLastBasedOnLength(indexBigGua(ixbianGua, ixhuBen))
-        val maoGong = takeLastBasedOnLength(indexBigGua(ixhuBian, ixhuBen))
+        // 计算各宫
+        val ziGong = takeLastBasedOnLength(indexBigGua(ixBianShang, ixHuBianXia))
+        val chouGong = takeLastBasedOnLength(indexBigGua(ixBenShang, ixHuBenXia))
+        val yinGong = takeLastBasedOnLength(indexBigGua(ixBianShang, ixHuBenXia))
+        val maoGong = takeLastBasedOnLength(indexBigGua(ixHuBianShang, ixHuBenXia))
 
-        val chenGong = takeLastBasedOnLength(indexBigGua(ixbianGua, ixman))
-        val siGong = takeLastBasedOnLength(indexBigGua(ixhuBian, ixman))
-        val wuGong = takeLastBasedOnLength(indexBigGua(ixhuBen, ixman))
-        val weiGong = takeLastBasedOnLength(indexBigGua(ixhuBian, ixbianGua))
+        val chenGong = takeLastBasedOnLength(indexBigGua(ixBianShang, ixBenXia))
+        val siGong = takeLastBasedOnLength(indexBigGua(ixHuBianShang, ixBenXia))
+        val wuGong = takeLastBasedOnLength(indexBigGua(ixHuBenShang, ixBenXia))
+        val weiGong = takeLastBasedOnLength(indexBigGua(ixHuBianShang, ixBianXia))
 
-        val shenGong = takeLastBasedOnLength(indexBigGua(ixhuBen, ixbianGua))
-        val youGong = takeLastBasedOnLength(indexBigGua(ixman, ixbianGua))
-        val xuGong = takeLastBasedOnLength(indexBigGua(ixhuBen, ixhuBian))
-        val haiGong = takeLastBasedOnLength(indexBigGua(ixman, ixhuBian))
+        val shenGong = takeLastBasedOnLength(indexBigGua(ixHuBenShang, ixBianXia))
+        val youGong = takeLastBasedOnLength(indexBigGua(ixBenShang, ixBianXia))
+        val xuGong = takeLastBasedOnLength(indexBigGua(ixHuBenShang, ixHuBianXia))
+        val haiGong = takeLastBasedOnLength(indexBigGua(ixBenShang, ixHuBianXia))
 
         return listOf(
             ziGong,
@@ -92,16 +128,16 @@ class GuaCalculator {
             youGong,
             xuGong,
             haiGong,
-            manGua[0] as String,
-            bianGua[0] as String,
-            huBen[0] as String,
-            huBian[0] as String
+            benShang[0] as String + benXia[0] as String,
+            bianShang[0] as String + bianXia[0] as String,
+            huBenShangGua[0] as String + huBenXiaGua[0] as String,
+            huBianShangGua[0] as String + huBianXiaGua[0] as String
         )
     }
 }
 
 fun main() {
     val processor = GuaCalculator()
-    val results = processor.toggleElement(listOf(9, 8, 0), listOf(0, 2))
+    val results = processor.toggleElement(listOf(9, 8, 7, 6, 5, 4), listOf(0, 2))
     println(results)
 }
