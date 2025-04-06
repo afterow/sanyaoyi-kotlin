@@ -46,7 +46,7 @@ object LunarUtils {
         val bagualist = listOf(tianchengshu, renchengshu, dichengshu)
 
         val processor = GuaCalculator()
-        val results = processor.toggleElement(bagualist)
+        val results = processor.toggleElement(bagualist, listOf(0, 2)) // 传入动爻索引列表
 
         return Triple(eightChar, lunarHour, results)
     }
