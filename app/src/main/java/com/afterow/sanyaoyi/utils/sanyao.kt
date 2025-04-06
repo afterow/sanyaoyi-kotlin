@@ -81,7 +81,7 @@ class GuaCalculator {
 
         // region 计算互卦（本卦和变卦的中间爻组合）
         // 互本卦：取本卦的2-4爻（索引1,2）和变卦的中间爻（索引1）
-        val huBenElements: List<Int> = listOf(originalBinary[1], originalBinary[2], tmpList[1])
+        val huBenElements: List<Int> = listOf(originalBinary[1], originalBinary[2], tmpList[0])
         val huBen: List<Any> = findKeyByValue(huBenElements) ?: return listOf("互本未找到")
 
         // 互变卦：在互本卦基础上应用相同动爻变化
@@ -140,7 +140,7 @@ class GuaCalculator {
 fun main() {
     val calculator = GuaCalculator()
     // 测试用例：初始爻值[0（阴）, 8（偶数为阴）, 0（阴）]，动爻位置0（最下爻）
-    val results = calculator.toggleElement(listOf(0, 8, 0), listOf(1))
+    val results = calculator.toggleElement(listOf(0, 8, 0), listOf(0))
     println("十二宫+四卦结果：")
     results.forEachIndexed { index, value ->
         when (index) {
