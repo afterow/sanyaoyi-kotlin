@@ -57,15 +57,18 @@ class DivinationActivity : AppCompatActivity() {
 
         // 从 Intent 中获取 "listData" 字段的值
         val listString = intent.getStringExtra("listData")
+        val yaobianList =intent.getStringExtra("yaobianList")
 
         // 将字符串转换为 MutableList<Int>
         val mutableList =
             listString?.split(",")?.map { it.toIntOrNull() }?.filterNotNull()?.toMutableList()
                 ?: mutableListOf()
 
+        val yaobianList2 = yaobianList?.split(",")?.map { it.toIntOrNull() }?.filterNotNull()?.toMutableList() ?: mutableListOf()
+
         // 创建 GuaCalculator 实例并计算卦象
         val calculator = GuaCalculator()
-        val result = calculator.toggleElement(mutableList, listOf(0, 2)) // 传入动爻索引列表
+        val result = calculator.toggleElement(mutableList,yaobianList2) // 传入动爻索引列表
 
         // 将计算结果显示在界面上
         val textViews1 = arrayOf(
