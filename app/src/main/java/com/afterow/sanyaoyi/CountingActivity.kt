@@ -6,52 +6,49 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlin.math.abs
 
 class CountingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_counting)  // 确保这一行存在，并指向正确的布局文件
+        setContentView(R.layout.activity_counting)
 
-        val myButton: Button = findViewById(R.id.addButton)
-        myButton.setOnClickListener {
+        val addButton: Button = findViewById(R.id.addButton)
+        addButton.setOnClickListener {
             val editText1: EditText = findViewById(R.id.editText1)
             val editText2: EditText = findViewById(R.id.editText2)
             val editText3: EditText = findViewById(R.id.editText3)
 
-            val inputs: List<Int?> = listOf(
+            // 转换输入为有效整数列表
+            val validInputs = listOf(
                 editText1.text.toString().toIntOrNull(),
                 editText2.text.toString().toIntOrNull(),
                 editText3.text.toString().toIntOrNull()
-            )
-
-            val mutableList = mutableListOf<Int>()
-            for (input in inputs) {
-                // 检查 input 是否非空
-                if (input != null) {
-                    // 判断是奇数还是偶数
-                    if (input % 2 == 0) {
-                        mutableList.add(0) // 偶数
-                    } else {
-                        mutableList.add(1) // 奇数
-                    }
+            ).mapNotNull { input ->
+                input?.let {
+                    if (it % 2 == 0) 0 else 1 // 偶数转0，奇数转1
                 }
             }
 
-            val validInputs = mutableList.toList()
+            // 必须三个有效输入
+            if (validInputs.size == 3) {
+                // 计算爻变索引（确保索引在0-2之间）
+                val dynamicIndex = abs(validInputs.sum()) % 3
+                val yaobianList = listOf(dynamicIndex)
 
-            if (validInputs.size > 2) {  // 确保至少有一个有效的输入
-                val listString = validInputs.joinToString(",") { it.toString() }
-
-                val dynamicIndex = (mutableList[0] + mutableList[1] + mutableList[2]) % 3
-                val yaobianList = mutableListOf<Int>(dynamicIndex-1)
-                val intent = Intent(this, DivinationActivity::class.java)
-                intent.putExtra("listData", listString)
-                intent.putExtra("yaobianList", yaobianList.joinToString(","))
-                startActivity(intent)
+                // 传递数据到下一个界面
+                Intent(this, DivinationActivity::class.java).apply {
+                    putExtra("listData", validInputs.joinToString(","))
+                    putExtra("yaobianList", yaobianList.joinToString(","))
+                    startActivity(this)
+                }
             } else {
-                // 可以添加一些错误提示，比如Toast
-                Toast.makeText(this, "请输入有效的数字", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "请输入三个有效数字",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
