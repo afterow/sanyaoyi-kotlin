@@ -43,7 +43,7 @@ class CountingActivity : AppCompatActivity() {
             if (validInputs.size > 2) {  // 确保至少有一个有效的输入
                 val listString = validInputs.joinToString(",") { it.toString() }
 
-                val dynamicIndex = (validInputs[0] + validInputs[1] + validInputs[2]) % 3
+                val dynamicIndex = ((validInputs[0] + validInputs[1] + validInputs[2]) % 3 )-1
                 val yaobianList = mutableListOf<Int>(dynamicIndex)
                 val intent = Intent(this, DivinationActivity::class.java)
                 intent.putExtra("listData", listString)
