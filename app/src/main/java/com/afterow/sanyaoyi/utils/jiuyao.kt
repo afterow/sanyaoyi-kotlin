@@ -3,6 +3,7 @@ package com.afterow.sanyaoyi.utils
 import com.tyme.eightchar.EightChar
 import com.tyme.lunar.LunarHour
 import com.tyme.solar.SolarTime
+import java.time.LocalDateTime
 
 object LunarUtils {
 
@@ -44,10 +45,28 @@ object LunarUtils {
         val renchengshu = (5 + xinmingshu + shuxiang) % 8
         val dichengshu = (rishu + shishu) % 8
         val bagualist = listOf(tianchengshu, renchengshu, dichengshu)
+        println(bagualist)
+        val dynamicIndex = (tianchengshu + renchengshu + dichengshu) % 3
 
         val processor = GuaCalculator()
-        val results = processor.toggleElement(bagualist, listOf(0, 2)) // 传入动爻索引列表
+        val results = processor.toggleElement(bagualist, listOf(dynamicIndex)) // 传入动爻索引列表
 
         return Triple(eightChar, lunarHour, results)
     }
+}
+
+fun main() {
+    val currentDateTime = LocalDateTime.now()
+    val (eightChar, lunarHour, results) = LunarUtils.getLunarData(
+        currentDateTime.year,
+        currentDateTime.monthValue,
+        currentDateTime.dayOfMonth,
+        currentDateTime.hour,
+        currentDateTime.minute,
+        currentDateTime.second,
+        "男"
+    )
+    println("八字: $eightChar")
+    println("农历时辰: $lunarHour")
+    println("三才数: $results")
 }
