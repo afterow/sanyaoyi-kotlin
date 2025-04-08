@@ -86,6 +86,7 @@ class GuaCalculator {
 
         // 互变卦：在互本卦基础上应用相同动爻变化
         val huBianElements: MutableList<Int> = huBenElements.toMutableList()
+        // region 计算变卦（应用动爻变化）
         yaobianList.forEach { yaobian ->
             // 确保动爻位置在0-2范围内（互卦只有3爻）
             if (yaobian in 0..2) {
