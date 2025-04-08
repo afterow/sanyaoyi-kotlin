@@ -44,7 +44,15 @@ class CountingActivity : AppCompatActivity() {
                 val listString = validInputs.joinToString(",") { it.toString() }
 
                 val dynamicIndex = inputs.sumOf { it ?: 0 } % 3
-                val yaobianList = mutableListOf<Int>(dynamicIndex)
+                    val modifiedIndex = when (dynamicIndex) {
+                        1 -> 2
+                        2 -> 1
+                        0 -> 0
+                        else -> dynamicIndex // 1 保持原值
+                    }
+
+                val yaobianList = mutableListOf<Int>(modifiedIndex)
+
 
 
                 val intent = Intent(this, DivinationActivity::class.java)
