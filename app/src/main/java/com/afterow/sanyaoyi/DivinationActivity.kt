@@ -10,6 +10,10 @@ import com.afterow.sanyaoyi.utils.ScreenshotUtils
 import com.afterow.sanyaoyi.databinding.ActivityDivinationBinding
 import com.tyme.solar.SolarTime
 import java.time.LocalDateTime
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 
 class DivinationActivity : AppCompatActivity() {
 
@@ -91,5 +95,20 @@ class DivinationActivity : AppCompatActivity() {
             // 捕获并显示屏幕截图
             ScreenshotUtils.captureAndShowScreenshot(this, scrollView1, scrollView2, fileName = now.toString())
         }
+
+        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
+        viewPager.adapter = ViewPagerAdapter(this)
     }
+}
+
+class ViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
+    private val fragments = listOf(
+        Page1Fragment(),
+        Page2Fragment(),
+        Page3Fragment()
+    )
+
+    override fun getItemCount(): Int = fragments.size
+
+    override fun createFragment(position: Int): Fragment = fragments[position]
 }
