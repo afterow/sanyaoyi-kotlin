@@ -1,13 +1,191 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical">
 
     <TextView
+        android:text="页面一"
+        android:layout_gravity="center"
+        android:textSize="20dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Page 1"
-        android:textSize="24sp" />
+        android:layout_height="wrap_content"/>
+
+    <GridLayout
+        android:id="@+id/scrollView2"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:columnCount="4"
+        android:padding="16dp"
+        android:rowCount="4"
+        tools:ignore="ExtraText">
+
+        <!-- Row 1 -->
+        <TextView
+            android:id="@+id/gong6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="-1dp"
+            android:background="@drawable/border"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/gong7"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="-1dp"
+            android:layout_marginStart="-1dp"
+            android:background="@drawable/border"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/gong8"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="-1dp"
+            android:layout_marginStart="-1dp"
+            android:background="@drawable/border"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/gong9"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="-1dp"
+            android:layout_marginStart="-1dp"
+            android:background="@drawable/border"
+            android:gravity="center" />
+
+        <!-- ... Other TextViews ... -->
+
+        <!-- Row 2 -->
+        <TextView
+            android:id="@+id/gong5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="-1dp"
+            android:background="@drawable/border"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/manGua"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="-1dp"
+            android:layout_marginStart="-1dp"
+            android:background="@drawable/border"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/bianGua"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="-1dp"
+            android:layout_marginStart="-1dp"
+            android:background="@drawable/border"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/gong10"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="-1dp"
+            android:layout_marginStart="-1dp"
+            android:background="@drawable/border"
+            android:gravity="center" />
+        <!-- ... Other TextViews ... -->
+
+        <!-- Row 3 -->
+        <TextView
+            android:id="@+id/gong4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="-1dp"
+            android:background="@drawable/border"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/huBen"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="-1dp"
+            android:layout_marginStart="-1dp"
+            android:background="@drawable/border"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/huBian"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="-1dp"
+            android:layout_marginStart="-1dp"
+            android:background="@drawable/border"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/gong11"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="-1dp"
+            android:layout_marginStart="-1dp"
+            android:background="@drawable/border"
+            android:gravity="center" />
+        <!-- ... Other TextViews ... -->
+
+        <!-- Row 4 -->
+
+        <TextView
+            android:id="@+id/gong3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:background="@drawable/border"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/gong2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginStart="-1dp"
+            android:background="@drawable/border"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/gong1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginStart="-1dp"
+            android:background="@drawable/border"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/gong12"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginStart="-1dp"
+            android:background="@drawable/border"
+            android:gravity="center" />
+
+    </GridLayout>
 </LinearLayout>
