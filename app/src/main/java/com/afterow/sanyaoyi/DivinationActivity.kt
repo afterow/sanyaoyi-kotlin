@@ -10,6 +10,10 @@ import com.afterow.sanyaoyi.utils.ScreenshotUtils
 import com.afterow.sanyaoyi.databinding.ActivityDivinationBinding
 import com.tyme.solar.SolarTime
 import java.time.LocalDateTime
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 
 class DivinationActivity : AppCompatActivity() {
 
@@ -52,44 +56,31 @@ class DivinationActivity : AppCompatActivity() {
             or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
         )
 
-
-        // 从 Intent 中获取 "listData" 字段的值
-        val listString = intent.getStringExtra("listData")
-        val yaobianList =intent.getStringExtra("yaobianList")
-
-        // 将字符串转换为 MutableList<Int>
-        val mutableList =
-            listString?.split(",")?.map { it.toIntOrNull() }?.filterNotNull()?.toMutableList()
-                ?: mutableListOf()
-
-        val yaobianList2 = yaobianList?.split(",")?.map { it.toIntOrNull() }?.filterNotNull()?.toMutableList() ?: mutableListOf()
-
-        // 创建 GuaCalculator 实例并计算卦象
-        val calculator = GuaCalculator()
-        val result = calculator.toggleElement(mutableList,yaobianList2) // 传入动爻索引列表
-
-        // 将计算结果显示在界面上
-        val textViews1 = arrayOf(
-            binding.gong1, binding.gong2, binding.gong3, binding.gong4,
-            binding.gong5, binding.gong6, binding.gong7, binding.gong8,
-            binding.gong9, binding.gong10, binding.gong11, binding.gong12
-        )
-        binding.manGua.text = result[12].toString()
-        binding.bianGua.text = result[13].toString()
-        binding.huBen.text = result[14].toString()
-        binding.huBian.text = result[15].toString()
-        for (i in textViews1.indices) {
-            textViews1[i].text = result[i].toString()
-        }
+        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
+        val viewPagerAdapter = ViewPagerAdapter(this);
+        viewPager.adapter = viewPagerAdapter
 
         // 设置保存按钮的点击事件
         var saveButton: Button = findViewById(R.id.save_button2)
         var scrollView1: LinearLayout = findViewById(R.id.scrollView1)  // 需要保存为图片的视图
-        var scrollView2: LinearLayout = findViewById(R.id.scrollView2)  // 需要保存为图片的视图
 
         saveButton.setOnClickListener {
             // 捕获并显示屏幕截图
+            val fragment = viewPagerAdapter.createFragment(viewPager.currentItem)
+            val scrollView2: View = fragment.requireView().findViewById(R.id.scrollView2)
             ScreenshotUtils.captureAndShowScreenshot(this, scrollView1, scrollView2, fileName = now.toString())
         }
     }
+}
+
+class ViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
+    private val fragments = listOf(
+        Page1Fragment(),
+        Page2Fragment(),
+        Page3Fragment()
+    )
+
+    override fun getItemCount(): Int = fragments.size
+
+    override fun createFragment(position: Int): Fragment = fragments[position]
 }
