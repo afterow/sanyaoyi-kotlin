@@ -1,10 +1,18 @@
 package com.afterow.sanyaoyi
 
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -21,46 +29,92 @@ import kotlin.math.absoluteValue
 
 class DivinationActivity : AppCompatActivity() {
 
+    companion object {
+        private const val LEFT_VIBRATION_AMPLITUDE = 255
+        private const val RIGHT_VIBRATION_AMPLITUDE = 180
+        private val VIBRATION_PATTERN = longArrayOf(0, 80, 50, 60)
+    }
+
+    private var previousPosition = -1
+
     private lateinit var binding: ActivityDivinationBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState);
 
         // 初始化视图绑定
-        binding = ActivityDivinationBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = ActivityDivinationBinding.inflate(layoutInflater);
+        setContentView(binding.root);
 
         // 获取当前时间
-        val now = LocalDateTime.now()
+        val now = LocalDateTime.now();
 
         // 计算当前时间的八字
         val eightChar2 = SolarTime.fromYmdHms(
             now.year, now.monthValue, now.dayOfMonth,
             now.hour, now.minute, now.second
-        ).lunarHour.eightChar
+        ).lunarHour.eightChar;
 
         // 将八字显示在界面上
-        binding.fourValuesTextView.text = eightChar2.toString()
+        binding.fourValuesTextView.text = eightChar2.toString();
 
         // 获取当前时间的农历时辰
         val lunarHour2 = SolarTime.fromYmdHms(
             now.year, now.monthValue, now.dayOfMonth,
             now.hour, now.minute, now.second
-        ).lunarHour
+        ).lunarHour;
 
         // 将农历时辰显示在界面上
-        binding.lunarDateTextView.text = lunarHour2.toString()
+        binding.lunarDateTextView.text = lunarHour2.toString();
 
         // 将公历时间显示在界面上
-        binding.gregorianDateTextView.text = now.toString()
+        binding.gregorianDateTextView.text = now.toString();
 
         // 设置沉浸式底部导航栏
-        window.decorView.systemUiVisibility = (
-            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-        )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView);
+            windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE;
+            windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
+        } else {
+            val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView);
+            windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE;
+            windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
+        }
 
-        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
+        val viewPager = findViewById<ViewPager2>(R.id.viewPager);
+        // 获取震动服务
+        val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            getSystemService(VibratorManager::class.java)?.defaultVibrator
+        } else {
+            @Suppress("DEPRECATION")
+            getSystemService(Context.VIBRATOR_SERVICE) as? Vibrator
+        }
+        // 设置滑动监听
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                
+                // 计算滑动方向 0:初始 1:向右 2:向左
+                val direction = when {
+                    previousPosition == -1 -> 0
+                    position > previousPosition -> 2
+                    else -> 1
+                }
+                previousPosition = position
+
+                // 根据方向调整震动强度
+                if (vibrator?.hasVibrator() == true) {
+                    val amplitudes = when (direction) {
+                        2 -> intArrayOf(0, LEFT_VIBRATION_AMPLITUDE, 0, LEFT_VIBRATION_AMPLITUDE/2)
+                        else -> intArrayOf(0, RIGHT_VIBRATION_AMPLITUDE, 0, RIGHT_VIBRATION_AMPLITUDE/2)
+                    }
+
+                    vibrator.vibrate(VibrationEffect.createWaveform(VIBRATION_PATTERN, amplitudes, -1))
+                }
+            }
+
+        })
         // 设置过渡动画
         viewPager.setPageTransformer(ZoomOutPageTransformer())
         // 设置滑动速度
@@ -106,7 +160,7 @@ class ViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activi
 // 添加ZoomOutPageTransformer类
 class ZoomOutPageTransformer : ViewPager2.PageTransformer {
     private val minScale = 0.85f
-    private val MIN_ALPHA = 0.5f
+    private val minAlpha = 0.5f
 
     override fun transformPage(view: View, position: Float) {
         view.apply {
@@ -129,8 +183,8 @@ class ZoomOutPageTransformer : ViewPager2.PageTransformer {
                     scaleX = scaleFactor
                     scaleY = scaleFactor
 
-                    alpha = (MIN_ALPHA +
-                            (((scaleFactor - minScale) / (1 - minScale)) * (1 - MIN_ALPHA)))
+                    alpha = (minAlpha +
+                            (((scaleFactor - minScale) / (1 - minScale)) * (1 - minAlpha)))
                 }
                 else -> {
                     alpha = 0f
