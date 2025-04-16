@@ -18,9 +18,9 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.afterow.sanyaoyi.PageFrag.Page1Fragment
-import com.afterow.sanyaoyi.PageFrag.Page2Fragment
-import com.afterow.sanyaoyi.PageFrag.Page3Fragment
+import com.afterow.sanyaoyi.pageFrag.Page1Fragment
+import com.afterow.sanyaoyi.pageFrag.Page2Fragment
+import com.afterow.sanyaoyi.pageFrag.Page3Fragment
 import com.afterow.sanyaoyi.databinding.ActivityDivinationBinding
 import com.afterow.sanyaoyi.utils.ScreenshotUtils
 import com.tyme.solar.SolarTime

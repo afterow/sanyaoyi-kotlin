@@ -1,22 +1,22 @@
-package com.afterow.sanyaoyi.PageFrag
+package com.afterow.sanyaoyi.pageFrag
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.afterow.sanyaoyi.databinding.FragmentPage1Binding
+import com.afterow.sanyaoyi.databinding.FragmentPage2Binding
 import com.afterow.sanyaoyi.utils.GuaCalculator
 
-class Page1Fragment : Fragment() {
+class Page2Fragment : Fragment() {
 
-    private lateinit var binding: FragmentPage1Binding
+    private lateinit var binding: FragmentPage2Binding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, 
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentPage1Binding.inflate(inflater)
+        binding = FragmentPage2Binding.inflate(inflater)
         return binding.root
     }
 

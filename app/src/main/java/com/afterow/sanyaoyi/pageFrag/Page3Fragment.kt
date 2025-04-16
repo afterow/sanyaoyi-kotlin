@@ -1,4 +1,4 @@
-package com.afterow.sanyaoyi.PageFrag
+package com.afterow.sanyaoyi.pageFrag
 
 import android.os.Bundle
 import android.view.LayoutInflater
