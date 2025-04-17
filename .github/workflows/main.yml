@@ -6,26 +6,30 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 30  # 设置超时时间
+    timeout-minutes: 30
 
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
         with:
-          persist-credentials: false  # 禁用凭据缓存
+          persist-credentials: false
 
       - name: 设置文件权限
         run: |
-          chmod +x gradlew  # 关键权限设置
-          chmod -R +x ./signing || true  # 可选目录权限
+          chmod +x gradlew
+          chmod -R +x ./signing || true
 
+      - name: 设置构建时间
+        run: |
+          BUILD_DATE=$(date -u +'%Y-%m-%d %H:%M:%S')
+          echo "BUILD_DATE=${BUILD_DATE}" >> $GITHUB_ENV
 
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '21'
           cache: 'gradle'
-          cache-dependency-path: |  # 缓存优化
+          cache-dependency-path: |
             build.gradle.kts
             app/build.gradle.kts
             gradle/wrapper/gradle-wrapper.properties
@@ -34,18 +38,13 @@ jobs:
         run: |
           VERSION_NAME=$(grep 'versionName' app/build.gradle.kts | sed -E 's/.*"(.*)"/\1/')
           echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV
-          echo "::notice::构建版本：${VERSION_NAME}"
 
       - name: 运行 gradle 测试
         run: ./gradlew test
 
-       # 解码 keystore
-      - name: Save Keystore
+      - name: 解码并保存 Keystore
         run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > key.keystore 2>/dev/null
-        shell: bash
 
-
-      # 读取签名配置
       - name: 读取签名配置
         run: |
           echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> $GITHUB_ENV
@@ -55,22 +54,42 @@ jobs:
       - name: 构建带签名的 APK
         run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file=./key.keystore -Pandroid.injected.signing.store.password=${{ env.KEYSTORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ env.KEY_ALIAS }} -Pandroid.injected.signing.key.alias.password=${{ env.KEY_ALIAS_PASSWORD }}
 
-      - name: 重命名 APK 文件
+      - name: 处理构建产物
         run: |
-          mv ./app/build/outputs/apk/release/app-release.apk ./app/build/outputs/apk/release/sanyao-${{ env.VERSION_NAME }}.apk
+          # 重命名文件
+          APK_NAME="sanyao-${{ env.VERSION_NAME }}.apk"
+          mv ./app/build/outputs/apk/release/app-release.apk ./${APK_NAME}
+          
+          # 计算文件信息
+          FILE_SIZE=$(stat -c %s ./${APK_NAME} | numfmt --to=iec)
+          MD5=$(md5sum ./${APK_NAME} | awk '{ print $1 }')
+          SHA256=$(sha256sum ./${APK_NAME} | awk '{ print $1 }')
+          
+          # 存储变量
+          echo "APK_NAME=${APK_NAME}" >> $GITHUB_ENV
+          echo "FILE_SIZE=${FILE_SIZE}" >> $GITHUB_ENV
+          echo "MD5=${MD5}" >> $GITHUB_ENV
+          echo "SHA256=${SHA256}" >> $GITHUB_ENV
 
       - name: 发布 Release
-        id: create_release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ env.VERSION_NAME }}  
+          tag_name: v${{ env.VERSION_NAME }}
           name: sanyao ${{ env.VERSION_NAME }} Release
           body: |
-            ### 构建信息
-            - **构建时间**: ${{ env.BUILD_DATE }}
-            - **提交版本**: [${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
-          draft: false
-          prerelease: false
-          files: ./app/build/outputs/apk/release/*.apk  
+            ### 版本信息
+            - 应用版本: **${{ env.VERSION_NAME }}**
+            - 构建时间: `${{ env.BUILD_DATE }}`
+            
+            ### 文件信息
+            - 文件名称: `${{ env.APK_NAME }}`
+            - 文件大小: **${{ env.FILE_SIZE }}**
+            - MD5: `${{ env.MD5 }}`
+            - SHA256: `${{ env.SHA256 }}`
+            
+            ### 构建上下文
+            - 触发提交: [${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
+            - 运行编号: [#${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          files: ${{ env.APK_NAME }}
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
