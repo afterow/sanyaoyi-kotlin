@@ -1,58 +1,63 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <TextView
-        android:text="页面一"
-        android:layout_gravity="center"
-        android:textSize="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+            android:text="页面一"
+            android:layout_gravity="center"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     <GridLayout
-        android:id="@+id/scrollView2"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:columnCount="4"
-        android:padding="16dp"
-        android:rowCount="4"
-        tools:ignore="ExtraText">
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:columnCount="4"
+            android:padding="16dp"
+            android:rowCount="4"
+            tools:ignore="ExtraText">
 
         <!-- Row 1 -->
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-        android:background="@drawable/border">
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="-1dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/border"
+                tools:ignore="RtlHardcoded">
 
             <TextView
-                android:id="@+id/gong6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="巳" />
+                    android:id="@+id/gong6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="巳" />
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|bottom"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="巳" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="巳" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-        android:background="@drawable/border">
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="-1dp"
+                android:layout_marginStart="-1dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/border">
 
             <TextView
                     android:id="@+id/gong7"
@@ -62,283 +67,327 @@
                     android:text="午" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|bottom"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="午" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="午" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-        android:background="@drawable/border">
-            <TextView
-                android:id="@+id/gong8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="-1dp"
+                android:layout_marginStart="-1dp"
                 android:gravity="center"
-                android:text="未" />
+                android:orientation="vertical"
+                android:background="@drawable/border">
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|bottom"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="未" />
+                    android:id="@+id/gong8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="未" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="未" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-        android:background="@drawable/border">
-            <TextView
-                android:id="@+id/gong9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="-1dp"
+                android:layout_marginStart="-1dp"
                 android:gravity="center"
-                android:text="申" />
+                android:orientation="vertical"
+                android:background="@drawable/border">
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|bottom"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="申" />
+                    android:id="@+id/gong9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="申" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="申" />
         </LinearLayout>
 
         <!-- ... Other TextViews ... -->
 
         <!-- Row 2 -->
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-        android:background="@drawable/border">
-            <TextView
-                android:id="@+id/gong5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="-1dp"
                 android:gravity="center"
-                android:text="辰" />
+                android:orientation="vertical"
+                android:background="@drawable/border">
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|bottom"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="辰" />
+                    android:id="@+id/gong5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="辰" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="辰" />
         </LinearLayout>
+
         <TextView
-            android:id="@+id/manGua"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_marginBottom="-1dp"
-            android:layout_marginStart="-1dp"
-            android:background="@drawable/border"
-            android:gravity="center" />
+                android:id="@+id/manGua"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="-1dp"
+                android:layout_marginStart="-1dp"
+                android:background="@drawable/border"
+                android:gravity="center" />
+
         <TextView
-            android:id="@+id/bianGua"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_marginBottom="-1dp"
-            android:layout_marginStart="-1dp"
-            android:background="@drawable/border"
-            android:gravity="center" />
+                android:id="@+id/bianGua"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="-1dp"
+                android:layout_marginStart="-1dp"
+                android:background="@drawable/border"
+                android:gravity="center" />
+
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-        android:background="@drawable/border">
-            <TextView
-                android:id="@+id/gong10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="-1dp"
+                android:layout_marginStart="-1dp"
                 android:gravity="center"
-                android:text="酉" />
+                android:orientation="vertical"
+                android:background="@drawable/border">
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|bottom"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="酉" />
+                    android:id="@+id/gong10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="酉" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="酉" />
         </LinearLayout>
         <!-- ... Other TextViews ... -->
 
         <!-- Row 3 -->
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-        android:background="@drawable/border">
-            <TextView
-                android:id="@+id/gong4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="-1dp"
                 android:gravity="center"
-                android:text="卯" />
+                android:orientation="vertical"
+                android:background="@drawable/border">
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|bottom"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="卯" />
+                    android:id="@+id/gong4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="卯" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="卯" />
         </LinearLayout>
+
         <TextView
-            android:id="@+id/huBen"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_marginBottom="-1dp"
-            android:layout_marginStart="-1dp"
-            android:background="@drawable/border"
-            android:gravity="center" />
+                android:id="@+id/huBen"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="-1dp"
+                android:layout_marginStart="-1dp"
+                android:background="@drawable/border"
+                android:gravity="center" />
+
         <TextView
-            android:id="@+id/huBian"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_marginBottom="-1dp"
-            android:layout_marginStart="-1dp"
-            android:background="@drawable/border"
-            android:gravity="center" />
+                android:id="@+id/huBian"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="-1dp"
+                android:layout_marginStart="-1dp"
+                android:background="@drawable/border"
+                android:gravity="center" />
+
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-        android:background="@drawable/border">
-            <TextView
-                android:id="@+id/gong11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="-1dp"
+                android:layout_marginStart="-1dp"
                 android:gravity="center"
-                android:text="戌" />
+                android:orientation="vertical"
+                android:background="@drawable/border">
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|bottom"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="戌" />
+                    android:id="@+id/gong11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="戌" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="戌" />
         </LinearLayout>
         <!-- ... Other TextViews ... -->
 
         <!-- Row 4 -->
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-        android:background="@drawable/border">
-            <TextView
-                android:id="@+id/gong3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
                 android:gravity="center"
-                android:text="寅" />
+                android:orientation="vertical"
+                android:background="@drawable/border">
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|bottom"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="寅" />
+                    android:id="@+id/gong3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="寅" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="寅" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-        android:background="@drawable/border">
-            <TextView
-                android:id="@+id/gong2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginStart="-1dp"
                 android:gravity="center"
-                android:text="酉" />
+                android:orientation="vertical"
+                android:background="@drawable/border">
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|bottom"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="丑" />
+                    android:id="@+id/gong2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="酉" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="丑" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-        android:background="@drawable/border">
-            <TextView
-                android:id="@+id/gong1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginStart="-1dp"
                 android:gravity="center"
-                android:text="子" />
+                android:orientation="vertical"
+                android:background="@drawable/border">
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|bottom"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="子" />
+                    android:id="@+id/gong1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="子" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="子" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-        android:background="@drawable/border">
-            <TextView
-                android:id="@+id/gong12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginStart="-1dp"
                 android:gravity="center"
-                android:text="亥" />
+                android:orientation="vertical"
+                android:background="@drawable/border">
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|bottom"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="亥" />
+                    android:id="@+id/gong12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="亥" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="亥" />
         </LinearLayout>
 
     </GridLayout>
