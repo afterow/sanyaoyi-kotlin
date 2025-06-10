@@ -72,7 +72,7 @@ jobs:
           echo "SHA256=${SHA256}" >> $GITHUB_ENV
 
       - name: 发布 Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v4
         with:
           tag_name: v${{ env.VERSION_NAME }}
           name: sanyao ${{ env.VERSION_NAME }} Release
