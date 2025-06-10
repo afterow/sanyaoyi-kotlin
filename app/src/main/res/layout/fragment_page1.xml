@@ -21,142 +21,130 @@
             tools:ignore="ExtraText">
 
         <!-- Row 1 -->
-        <LinearLayout
+        <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginBottom="-1dp"
-                android:gravity="center"
-                android:orientation="vertical"
                 android:background="@drawable/border"
                 tools:ignore="RtlHardcoded">
-
             <TextView
                     android:id="@+id/gong6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_centerInParent="true"
                     android:text="巳" />
-
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="巳" />
-        </LinearLayout>
+                    android:text="巳"
+                    android:textColor="#fa3534" />
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginBottom="-1dp"
                 android:layout_marginStart="-1dp"
-                android:gravity="center"
-                android:orientation="vertical"
                 android:background="@drawable/border">
-
             <TextView
                     android:id="@+id/gong7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_centerInParent="true"
                     android:text="午" />
-
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="午" />
-        </LinearLayout>
+                    android:text="午"
+                    android:textColor="#fa3534" />
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginBottom="-1dp"
                 android:layout_marginStart="-1dp"
-                android:gravity="center"
-                android:orientation="vertical"
                 android:background="@drawable/border">
-
             <TextView
                     android:id="@+id/gong8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_centerInParent="true"
                     android:text="未" />
-
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="未" />
-        </LinearLayout>
+                    android:text="未"
+                    android:textColor="#795548" />
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginBottom="-1dp"
                 android:layout_marginStart="-1dp"
-                android:gravity="center"
-                android:orientation="vertical"
                 android:background="@drawable/border">
-
             <TextView
                     android:id="@+id/gong9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_centerInParent="true"
                     android:text="申" />
-
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="申" />
-        </LinearLayout>
-
-        <!-- ... Other TextViews ... -->
+                    android:text="申"
+                    android:textColor="#ff9900" />
+        </RelativeLayout>
 
         <!-- Row 2 -->
-        <LinearLayout
+        <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginBottom="-1dp"
-                android:gravity="center"
-                android:orientation="vertical"
                 android:background="@drawable/border">
-
             <TextView
                     android:id="@+id/gong5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_centerInParent="true"
                     android:text="辰" />
-
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="辰" />
-        </LinearLayout>
+                    android:text="辰"
+                    android:textColor="#795548" />
+        </RelativeLayout>
 
         <TextView
                 android:id="@+id/manGua"
@@ -180,60 +168,55 @@
                 android:background="@drawable/border"
                 android:gravity="center" />
 
-        <LinearLayout
+        <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginBottom="-1dp"
                 android:layout_marginStart="-1dp"
-                android:gravity="center"
-                android:orientation="vertical"
                 android:background="@drawable/border">
-
             <TextView
                     android:id="@+id/gong10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_centerInParent="true"
                     android:text="酉" />
-
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="酉" />
-        </LinearLayout>
-        <!-- ... Other TextViews ... -->
+                    android:text="酉"
+                    android:textColor="#ff9900" />
+        </RelativeLayout>
 
         <!-- Row 3 -->
-        <LinearLayout
+        <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginBottom="-1dp"
-                android:gravity="center"
-                android:orientation="vertical"
                 android:background="@drawable/border">
-
             <TextView
                     android:id="@+id/gong4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_centerInParent="true"
                     android:text="卯" />
-
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="卯" />
-        </LinearLayout>
+                    android:text="卯"
+                    android:textColor="#19be6b" />
+        </RelativeLayout>
 
         <TextView
                 android:id="@+id/huBen"
@@ -257,138 +240,126 @@
                 android:background="@drawable/border"
                 android:gravity="center" />
 
-        <LinearLayout
+        <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginBottom="-1dp"
                 android:layout_marginStart="-1dp"
-                android:gravity="center"
-                android:orientation="vertical"
                 android:background="@drawable/border">
-
             <TextView
                     android:id="@+id/gong11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_centerInParent="true"
                     android:text="戌" />
-
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="戌" />
-        </LinearLayout>
-        <!-- ... Other TextViews ... -->
+                    android:text="戌"
+                    android:textColor="#795548" />
+        </RelativeLayout>
 
         <!-- Row 4 -->
-
-        <LinearLayout
+        <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:gravity="center"
-                android:orientation="vertical"
                 android:background="@drawable/border">
-
             <TextView
                     android:id="@+id/gong3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_centerInParent="true"
                     android:text="寅" />
-
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="寅" />
-        </LinearLayout>
+                    android:text="寅"
+                    android:textColor="#19be6b" />
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginStart="-1dp"
-                android:gravity="center"
-                android:orientation="vertical"
                 android:background="@drawable/border">
-
             <TextView
                     android:id="@+id/gong2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="酉" />
-
+                    android:layout_centerInParent="true"
+                    android:text="丑" />
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="丑" />
-        </LinearLayout>
+                    android:text="丑"
+                    android:textColor="#795548" />
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginStart="-1dp"
-                android:gravity="center"
-                android:orientation="vertical"
                 android:background="@drawable/border">
-
             <TextView
                     android:id="@+id/gong1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_centerInParent="true"
                     android:text="子" />
-
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="子" />
-        </LinearLayout>
+                    android:text="子"
+                    android:textColor="#2979ff" />
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginStart="-1dp"
-                android:gravity="center"
-                android:orientation="vertical"
                 android:background="@drawable/border">
-
             <TextView
                     android:id="@+id/gong12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_centerInParent="true"
                     android:text="亥" />
-
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="亥" />
-        </LinearLayout>
+                    android:text="亥"
+                    android:textColor="#2979ff" />
+        </RelativeLayout>
 
     </GridLayout>
 </LinearLayout>
