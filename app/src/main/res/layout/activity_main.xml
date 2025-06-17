@@ -18,21 +18,43 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="350px"
+        android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:orientation ="horizontal"
         android:background="@drawable/back"
         tools:ignore="PxUsage">
 
-        <TextView
-            android:id="@+id/timeTextView"
-            android:layout_width="50dp"
-            android:layout_height="43dp"
-            android:layout_marginLeft="16dp"
-            android:textSize="24sp" />
+        <!-- 左侧日期时间区块 -->
+
+        <!-- 右侧干支区块 -->
+        <LinearLayout
+                android:layout_width="83dp"
+                android:layout_height="86dp"
+                android:layout_weight="0"
+                android:orientation="vertical"
+                android:gravity="start|center_vertical"
+                android:paddingStart="24dp">
+
+            <TextView
+                    android:id="@+id/dateTextView"
+                    android:layout_width="52dp"
+                    android:layout_height="40dp"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_marginStart="8dp"/>
+
+            <TextView
+                    android:id="@+id/timeTextView"
+                    android:layout_width="52dp"
+                    android:layout_height="40dp"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_marginStart="8dp" />
+        </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <!-- 上面的4个TextView -->
@@ -97,8 +119,7 @@
 
                 <TextView
                     android:id="@+id/shizhi"
-                    android:text="12:22"
-                    android:layout_width="20dp"
+                    android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="16dp"
                     tools:ignore="HardcodedText,TextSizeCheck" />
