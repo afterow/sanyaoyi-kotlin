@@ -110,7 +110,7 @@ jobs:
             - 触发提交: [${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
             - 运行编号: [#${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
             
-            ### 变更日志  # 新增变更日志部分
+            ### 变更日志
             最近10个提交:
             ${{ env.CHANGELOG }}
           files: ${{ env.APK_NAME }}
