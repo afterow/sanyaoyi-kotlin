@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.afterow.sanyaoyi.databinding.FragmentPage2Binding
-import com.afterow.sanyaoyi.utils.GuaCalculator
+import com.afterow.sanyaoyi.utils.GuaCalculator2
 
 class Page2Fragment : Fragment() {
 
@@ -31,11 +31,12 @@ class Page2Fragment : Fragment() {
             listString?.split(",")?.mapNotNull { it.toIntOrNull() }?.toMutableList()
                 ?: mutableListOf()
 
-        val yaobianList2 = yaobianList?.split(",")?.mapNotNull { it.toIntOrNull() }?.toMutableList() ?: mutableListOf()
+        val yaobianList2 = yaobianList?.split(",")?.mapNotNull { it.toIntOrNull() }?.toMutableList()
+            ?: mutableListOf()
 
         // 创建 GuaCalculator 实例并计算卦象
-        val calculator = GuaCalculator()
-        val result = calculator.toggleElement(mutableList,yaobianList2) // 传入动爻索引列表
+        val calculator = GuaCalculator2()
+        val result = calculator.calculateGua(mutableList, yaobianList2) // 传入动爻索引列表
 
         // 将计算结果显示在界面上
         val textViews1 = arrayOf(
